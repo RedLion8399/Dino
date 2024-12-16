@@ -11,6 +11,9 @@ import pygame as pg
 
 pg.init()  # pylint: disable=no-member
 
+#Variable
+Jump = False
+Sneak = False
 
 # Initializes the window
 window_scale: list[int] = [800, 600]
@@ -44,10 +47,13 @@ def main() -> None:
         for event in pg.event.get():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_UP or pg.K_SPACE:
-                    if not Sneak
+                    if Sneak == False
                         Jump = True
-                if event.key == pg.K_DOWN and not Jump:
+                if event.key == pg.K_DOWN and Jump == False:
                     Sneak = True
+            if event.type == pg.KEYUP:
+                if event.key == pg.K_Down
+                    Sneak = False
 
         move_objects()
         update_display()
