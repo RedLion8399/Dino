@@ -40,7 +40,15 @@ def main() -> None:
     """
 
     while True:
-        get_input()
+        #get imput 
+        for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_UP or pg.K_SPACE:
+                    if not Sneak
+                        Jump = True
+                if event.key == pg.K_DOWN and Jump == False:
+                    Sneak = True
+
         move_objects()
         update_display()
 
