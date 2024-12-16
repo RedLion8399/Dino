@@ -46,7 +46,7 @@ def main() -> None:
                 if event.key == pg.K_UP or pg.K_SPACE:
                     if not Sneak
                         Jump = True
-                if event.key == pg.K_DOWN and Jump == False:
+                if event.key == pg.K_DOWN and not Jump:
                     Sneak = True
 
         move_objects()
