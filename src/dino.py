@@ -6,11 +6,21 @@ class Status(Enum):
     JUMPING = 2
     SNEAKING = 3
 
+
 class Dino:
     """This class contains the behaviour of the dino."""
     def __init__(self) -> None:
         self.position: int = 20
-        self.status: Status = Status.RUNNING
+        self.__status: Status = Status.RUNNING
+
+    @property
+    def input_status(self) -> Status:
+        return self.__status
+
+    @input_status.setter
+    def input_status(self, status: Status) -> None:
+        if self.__status == Status.RUNNING:
+            self.__status = status
 
     def run(self) -> None:
         raise NotImplementedError("Subclasses must implement the run method.")
