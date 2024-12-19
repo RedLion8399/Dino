@@ -32,22 +32,23 @@ sneak_keys: list[int] = [pg.K_DOWN]
 object_speed: int
 score: int = 0
 
-def get_input() -> Status | None:
+
+def get_input() ->  None:
     """This function gets the input from the user.
-    It returns the status of the dino.
+    It collects all inputs from the previous frame and
+    processes them by modyfying the game according to the player wishes.
     """
     for event in pg.event.get():
         if event.type == pg.QUIT:
             sys.exit()
         if event.type == pg.KEYDOWN:
-            if event.key in jump_keys:
-                dino.input_status = Status.JUMPING
-            if event.key in sneak_keys:
-                dino.input_status = Status.SNEAKING
+            if event.key in jump_keys and dino.status == Status.RUNNING:
+                dino.status = Status.JUMPING
+            if event.key in sneak_keys and dino.status == Status.RUNNING:
+                dino.status = Status.SNEAKING
         if event.type == pg.KEYUP:
-            if event.key in sneak_keys:
-                # TODO Add func to property to change status from sneaking to running
-                dino.input_status = Status.RUNNING
+            if event.key in sneak_keys and dino.status == Status.SNEAKING:
+                dino.status = Status.RUNNING
 
 
 
