@@ -1,0 +1,17 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "njpwerner.autodocstring",
+        "aaron-bond.better-comments",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "tamasfe.even-better-toml",
+        "codeium.codeium",
+        "ms-vsliveshare.vsliveshare",
+        "alefragnani.numbered-bookmarks",
+        "rodolphebarbanneau.python-docstring-highlighter",
+        "ms-python.debugpy",
+        "bierner.github-markdown-preview",
+        "bierner.markdown-mermaid",
+    ]
+}
