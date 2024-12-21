@@ -1,4 +1,4 @@
-## Sumary
+## Summary
 
 This pull request includes the following changes:
 - [Description of the changes]
@@ -6,8 +6,8 @@ This pull request includes the following changes:
 
 ## Problems _(if existing)_
 
-There are those issues orruring:
-- [Description of the issue; reference to the bugtracker]
+There issues currently exist:
+- [Description of the issue; reference to the bug tracker]
 
 
 ## Checks
@@ -15,8 +15,8 @@ There are those issues orruring:
 - [ ] Wrote unit tests for the code?
 - [ ] Does all tests passed properly?
 - [ ] Changed documentation files if necessary?
-- [ ] Used docstrings for getting support from the editor?
-- [ ] Followed the PEP-8 conevntions?
+- [ ] Used doc strings for getting support from the editor?
+- [ ] Followed the PEP-8 conventions?
 
 
 ## Additional Information
