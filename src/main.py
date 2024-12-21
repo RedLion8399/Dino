@@ -5,8 +5,6 @@ defined in other modules.
 """
 # pylint: disable=no-member
 
-from random import randint  # pylint: disable=unused-import
-import time as t  # pylint: disable=unused-import
 import sys
 import pygame as pg
 from dino import Dino, Status
@@ -54,7 +52,6 @@ def get_input() ->  None:
 
 def game_over() -> None:
     """This function is called when the game is over."""
-
     sys.exit()
     pg.quit()
 
@@ -67,13 +64,6 @@ def main() -> None:
 
     while True:
         get_input()
-        move_objects()
-        update_display()
-
-        if kollision():
-            break
-        count_score()
-
     game_over()
 
 
