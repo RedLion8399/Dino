@@ -60,6 +60,6 @@ class TestStatus(unittest.TestCase):
 
     def test_values(self) -> None:
         """This function tests the initialization of the Status class."""
-        self.assertEqual(Status.RUNNING, 1)
-        self.assertEqual(Status.JUMPING, 2)
-        self.assertEqual(Status.SNEAKING, 3)
+        self.assertEqual(Status.RUNNING.value, 1)
+        self.assertEqual(Status.JUMPING.value, 2)
+        self.assertEqual(Status.SNEAKING.value, 3)
