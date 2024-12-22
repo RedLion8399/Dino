@@ -32,6 +32,8 @@ class TestCounter(unittest.TestCase):
             self.assertEqual(counter.score, floor(random_number / 3))
 
     def test_save_highscore(self) -> None:
+        with open("highscore.txt", "w", encoding="utf-8") as file:
+            file.write("0")
         """This function tests the save_highscore method of the Counter class."""
         counter: Counter = Counter()
         counter.save_highscore()
@@ -40,6 +42,8 @@ class TestCounter(unittest.TestCase):
 
     def test_load_random_highscore(self) -> None:
         """This function tests the load_highscore method of the Counter class."""
+        with open("highscore.txt", "w", encoding="utf-8") as file:
+            file.write("0")
         counter: Counter = Counter()
         random_score: int = randint(1, 100)
         counter.highscore = random_score
