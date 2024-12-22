@@ -8,6 +8,7 @@ defined in other modules.
 import sys
 import pygame as pg
 from dino import Dino
+from counter import Counter
 
 pg.init()
 
@@ -17,6 +18,7 @@ window_scale: list[int] = [800, 600]
 window: pg.Surface = pg.display.set_mode((window_scale[0], window_scale[1]))
 pg.display.set_caption("Dino")
 
+counter: Counter = Counter()
 dino: Dino = Dino()
 
 # Initializes the colors
@@ -53,6 +55,7 @@ def main() -> None:
 
     while True:
         get_input()
+        counter.count()
     game_over()
 
 
