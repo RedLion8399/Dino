@@ -19,6 +19,8 @@ class Counter:
     def __init__(self) -> None:
         self.score: int = 0
         self.frame_counter: int = 0
+        self.highscore: int = self.load_highscore()
+
 
     def count(self) -> int:
         """This method is responsible for counting the players score.
@@ -36,3 +38,24 @@ class Counter:
     def __int__(self) -> int:
         """This method returns the current score of the player."""
         return self.score
+
+    def save_highscore(self) -> None:
+        """This method saves the current highscore to a file."""
+        with open("highscore.txt", "w", encoding="utf-8") as file:
+            file.write(str(self.score))
+
+    def load_highscore(self) -> int:
+        """This method loads the highscore from a file.
+        If the file does not exist, it returns 0.
+
+        Raises:
+            FileNotFoundError: If the file does not exist.
+
+        Returns:
+            int: The highscore feom previous games.
+        """
+        try:
+            with open("highscore.txt", "r", encoding="utf-8") as file:
+                return int(file.read())
+        except FileNotFoundError:
+            return 0
