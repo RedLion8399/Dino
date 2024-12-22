@@ -13,7 +13,7 @@ class TestCounter(unittest.TestCase):
         counter: Counter = Counter()
         self.assertEqual(counter.score, 0)
         self.assertEqual(counter.frame_counter, 0)
-    
+
     def test_count_simple(self) -> None:
         """This function tests the count method of the Counter class."""
         counter: Counter = Counter()
@@ -32,9 +32,9 @@ class TestCounter(unittest.TestCase):
             self.assertEqual(counter.score, floor(random_number / 3))
 
     def test_save_highscore(self) -> None:
+        """This function tests the save_highscore method of the Counter class."""
         with open("highscore.txt", "w", encoding="utf-8") as file:
             file.write("0")
-        """This function tests the save_highscore method of the Counter class."""
         counter: Counter = Counter()
         counter.save_highscore()
         with open("highscore.txt", "r", encoding="utf-8") as file:
@@ -61,3 +61,23 @@ class TestCounter(unittest.TestCase):
         counter.save_highscore()
         counter.load_highscore()
         self.assertEqual(counter.highscore, 100)
+
+    def test_save_highscore_if_higher(self) -> None:
+        """This function tests the save_highscore method of the Counter class."""
+        with open("highscore.txt", "w", encoding="utf-8") as file:
+            file.write("0")
+        counter: Counter = Counter()
+        counter.score = 100
+        counter.save_highscore()
+        with open("highscore.txt", "r", encoding="utf-8") as file:
+            self.assertEqual(int(file.read()), 100)
+
+    def test_save_highscore_if_lower(self) -> None:
+        """This function tests the save_highscore method of the Counter class."""
+        with open("highscore.txt", "w", encoding="utf-8") as file:
+            file.write("55")
+        counter: Counter = Counter()
+        counter.score = 33
+        counter.save_highscore()
+        with open("highscore.txt", "r", encoding="utf-8") as file:
+            self.assertEqual(int(file.read()), 55)
