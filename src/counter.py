@@ -48,8 +48,10 @@ class Counter:
 
     def save_highscore(self) -> None:
         """This method saves the current highscore to a file."""
+        if self.score > self.highscore:
+            self.highscore = self.score
         with open("highscore.txt", "w", encoding="utf-8") as file:
-            file.write(str(self.score))
+            file.write(str(self.highscore))
 
     def load_highscore(self) -> int:
         """This method loads the highscore from a file.
