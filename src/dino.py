@@ -34,9 +34,6 @@ class Dino:
         status: The status of the dino as an enum of the Status class.
 
     Methods:
-        run: sets the dino parameters to running state.
-        jump: sets the dino parameters to jumping state.
-        sneak: sets the dino parameters to sneaking state.
         update: calls the specific method for the current state of the dino.
         check_collision: checks if the dino collides with an object.
     """
@@ -75,13 +72,13 @@ class Dino:
             if event.key in SNEAK_KEYS and self.status == Status.SNEAKING:
                 self.status = Status.RUNNING
 
-    def run(self) -> None:
+    def __run(self) -> None:
         raise NotImplementedError("Subclasses must implement the run method.")
 
-    def jump(self) -> None:
+    def __jump(self) -> None:
         raise NotImplementedError("Subclasses must implement the jump method.")
 
-    def sneak(self) -> None:
+    def __sneak(self) -> None:
         raise NotImplementedError("Subclasses must implement the sneak method.")
 
     def update(self) -> None:

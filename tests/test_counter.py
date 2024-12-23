@@ -5,6 +5,7 @@ from math import floor
 from random import randint
 from counter import Counter
 
+
 class TestCounter(unittest.TestCase):
     """This class contains the tests for the Counter class."""
 
@@ -48,7 +49,7 @@ class TestCounter(unittest.TestCase):
         random_score: int = randint(1, 100)
         counter.highscore = random_score
         counter.save_highscore()
-        counter.load_highscore()
+        counter._Counter__load_highscore()  # pylint: disable=protected-access  # type: ignore
         self.assertEqual(counter.highscore, random_score)
 
     def test_load_highscore(self) -> None:
@@ -59,7 +60,7 @@ class TestCounter(unittest.TestCase):
         self.assertEqual(counter.highscore, 0)
         counter.highscore = 100
         counter.save_highscore()
-        counter.load_highscore()
+        counter._Counter__load_highscore()  # pylint: disable=protected-access  # type: ignore
         self.assertEqual(counter.highscore, 100)
 
     def test_save_highscore_if_higher(self) -> None:
