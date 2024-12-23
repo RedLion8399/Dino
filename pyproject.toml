@@ -2,7 +2,7 @@
 name = "dino"
 version = "0.1.0"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.8"
 authors = [
     { name = "Paul Jonas Dohle", email = "paul.jonas@dohle-net.de" },
     { name = "Eric De Angelis", email = "eric.de.angelis@eugymwa.de" },
@@ -12,6 +12,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Intended Audience :: Education",
     "Intended Audience :: Developers",
