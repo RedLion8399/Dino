@@ -12,7 +12,7 @@ class TestDino(unittest.TestCase):
     def test_init(self) -> None:
         """This function tests the initialization of the Dino class."""
         dino: Dino = Dino()
-        self.assertEqual(dino.position, 20)
+        self.assertEqual(dino.y_position, 20)
         self.assertEqual(dino.status, Status.RUNNING)
 
     # The following functions tests the process_input method of the Dino class.

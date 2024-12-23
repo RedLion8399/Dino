@@ -6,7 +6,10 @@ classes:
     Status: This class contains the status of the dino as an enum.
 """
 # pylint: disable=no-member
+# pylint: disable=unused-private-member
+
 from enum import Enum
+from typing import Final
 import pygame as pg
 
 class Status(Enum):
@@ -31,14 +34,11 @@ class Dino:
         status: The status of the dino as an enum of the Status class.
 
     Methods:
-        run: sets the dino parameters to running state.
-        jump: sets the dino parameters to jumping state.
-        sneak: sets the dino parameters to sneaking state.
         update: calls the specific method for the current state of the dino.
         check_collision: checks if the dino collides with an object.
     """
     def __init__(self) -> None:
-        self.position: int = 20
+        self.y_position: int = 20
         self.status: Status = Status.RUNNING
 
     def process_input(self, event: pg.event.Event) -> None:
@@ -52,33 +52,33 @@ class Dino:
             event: The event that was triggered by the user
         
         Variables:
-            jump_keys: list of integers that represent the keys that make the dino jump.
-            sneak_keys: list of integers that represent the keys that make the dino sneak.
+            JUMP_KEYS: list of integers that represent the keys that make the dino jump.
+            SNEAK_KEYS: list of integers that represent the keys that make the dino sneak.
 
         Examples:
             >>> dino: Dino = Dino()
             >>> for event in pg.event.get():
             >>>     dino.process_input(event)
         """
-        jump_keys: list[int] = [pg.K_UP, pg.K_SPACE]
-        sneak_keys: list[int] = [pg.K_DOWN]
+        JUMP_KEYS: Final[list[int]] = [pg.K_UP, pg.K_SPACE]  # pylint: disable=invalid-name
+        SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]  # pylint: disable=invalid-name
 
         if event.type == pg.KEYDOWN:
-            if event.key in jump_keys and self.status == Status.RUNNING:
+            if event.key in JUMP_KEYS and self.status == Status.RUNNING:
                 self.status = Status.JUMPING
-            if event.key in sneak_keys and self.status == Status.RUNNING:
+            if event.key in SNEAK_KEYS and self.status == Status.RUNNING:
                 self.status = Status.SNEAKING
         if event.type == pg.KEYUP:
-            if event.key in sneak_keys and self.status == Status.SNEAKING:
+            if event.key in SNEAK_KEYS and self.status == Status.SNEAKING:
                 self.status = Status.RUNNING
 
-    def run(self) -> None:
+    def __run(self) -> None:
         raise NotImplementedError("Subclasses must implement the run method.")
 
-    def jump(self) -> None:
+    def __jump(self) -> None:
         raise NotImplementedError("Subclasses must implement the jump method.")
 
-    def sneak(self) -> None:
+    def __sneak(self) -> None:
         raise NotImplementedError("Subclasses must implement the sneak method.")
 
     def update(self) -> None:
