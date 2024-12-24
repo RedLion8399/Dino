@@ -2,24 +2,37 @@
 It is responsible for loading and storing the images and sounds from their files and preparing
 them for use in the game.
 """
-
+import os
 import pygame as pg
 
 
-def load_image(file_name:str) -> pg.Surface:
+def full_path(color_theme:str, file_name:str) -> str:
+    """Return the full path of a file in the recources directory.
+
+    Args:
+        color_theme (str): The color theme of the file as a directory.
+        file_name (str): The name of the file.
+    
+    Returns:
+        str: The full path of the file.
+    """
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), color_theme, file_name))
+
+def load_image(file_name:str, color_theme:str) -> pg.Surface:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
         file_name (str): The name of the file to load.
+        color_theme (str): The color theme of the image.
     
     Returns:
         image (pg.Surface): The loaded image as a pygame.Surface object.
     """
-    file_path: str = f"src/images/light_gray/{file_name}"
+    path: str = full_path(color_theme, file_name)
     try:
-        image: pg.Surface = pg.image.load(file_path).convert_alpha()
+        image: pg.Surface = pg.image.load(path).convert_alpha()
     except FileNotFoundError as error:
-        raise SystemExit(f"Could not load image '{file_path}' : {str(error)}") from error
+        raise SystemExit(f"Could not load image '{path}' : {str(error)}") from error
 
     # Makes the background of the image transparent
     image.set_colorkey(image.get_at((0, 0)))
