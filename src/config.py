@@ -16,9 +16,9 @@ class Config:
     """
 
     def __new__(cls):
-        if not hasattr(cls, "instance"):
-            cls.__instance = super().__new__(cls)
-        return cls.__instance
+        if not hasattr(cls, "_instance"):
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
     def __init__(self) -> None:
         self.color_theme: ColorTheme = ColorTheme.LIGHT_GRAY
