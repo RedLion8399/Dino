@@ -4,24 +4,27 @@ them for use in the game.
 """
 import os
 import pygame as pg
+from config import Config
 
 
-def full_path(file_name:str, color_theme:str="") -> str:
+def full_path(file_name:str, image : bool = True) -> str:
     """Return the full path of a file in the recources directory.
 
     Args:
-        color_theme (str): The color theme of the file as a directory.
         file_name (str): The name of the file.
-    
+        image (bool): True if the file is an image, False if it is a sound.
+
     Returns:
         str: The full path of the file.
     """
-    if not color_theme:
+    if not image:
         # Only executed if it is a sound file
         return os.path.abspath(os.path.join(os.path.dirname(__file__), "sounds", file_name))
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), "images", color_theme, file_name))
+    color_theme: str = str(Config.get_color_theme)
+    return os.path.abspath(os.path.join(
+        os.path.dirname(__file__), "images", color_theme, file_name))
 
-def load_image(color_theme:str, file_name:str) -> pg.Surface:
+def load_image(file_name:str) -> pg.Surface:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
@@ -31,7 +34,7 @@ def load_image(color_theme:str, file_name:str) -> pg.Surface:
     Returns:
         image (pg.Surface): The loaded image as a pygame.Surface object.
     """
-    path: str = full_path(file_name, color_theme)
+    path: str = full_path(file_name, True)
     try:
         image: pg.Surface = pg.image.load(path).convert_alpha()
     except FileNotFoundError as error:
