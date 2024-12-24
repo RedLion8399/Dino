@@ -22,6 +22,8 @@ class Config:
 
     def __init__(self) -> None:
         self.color_theme: ColorTheme = ColorTheme.LIGHT_GRAY
+        self.display_scale: tuple[int, int] = (800, 600)
+        self.caption: str = "Dino"
         self.object_speed: int = 5
 
 

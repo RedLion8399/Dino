@@ -10,16 +10,14 @@ from typing import Final
 import pygame as pg
 from dino import Dino
 from counter import Counter
-from config import config, ColorTheme
+from config import config
 
 
 pg.init()
 
 # Initializes the window
-WINDOW_SCALE: Final[tuple[int, int]] = (800, 600)
-window: pg.Surface = pg.display.set_mode(WINDOW_SCALE)
-pg.display.set_caption("Dino")
-config.color_theme = ColorTheme.LIGHT_GRAY
+window: pg.Surface = pg.display.set_mode(config.display_scale)
+pg.display.set_caption(config.caption)
 
 counter: Counter = Counter()
 dino: Dino = Dino()
