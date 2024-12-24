@@ -32,7 +32,8 @@ def load_image(file_name:str) -> pg.Surface:
         color_theme (str): The color theme of the image.
     
     Returns:
-        image (pg.Surface): The loaded image as a pygame.Surface object.
+        tuple[pg.Surface, pg.Rect]: The loaded image as a pygame.Surface object
+        and its rect representation.
     """
     path: str = full_path(file_name, True)
     try:
@@ -42,7 +43,7 @@ def load_image(file_name:str) -> pg.Surface:
 
     # Makes the background of the image transparent
     image.set_colorkey(image.get_at((0, 0)))
-    return image
+    return (image, image.get_rect())
 
 def load_sound(file_name:str) -> pg.mixer.Sound:
     """Load a sound from a file and return it as a pygame.mixer.Sound object.
@@ -60,7 +61,7 @@ def load_sound(file_name:str) -> pg.mixer.Sound:
         raise SystemExit(f"Could not load sound '{path}' : {str(error)}") from error
     return sound
 
-def seperate_images(image: pg.Surface, size: tuple[int, int]) -> list[pg.Surface]:
+def seperate_images(image: pg.Surface, size: tuple[int, int]) -> tuple[list[pg.Surface], pg.Rect]:
     """Seperate an image into smaller images of a given size.
     All of them must have the same size and must be ordered in a grid.
 
@@ -69,7 +70,7 @@ def seperate_images(image: pg.Surface, size: tuple[int, int]) -> list[pg.Surface
         size (tuple[int, int]): The amount of the image to seperate. (width, height)
     
     Returns:
-        list[pg.Surface]: A list of seperated images.
+        touple[List[pg.Surface], Rect]: List of the seperated images and their regt representation.
     """
     width: float = image.get_width() / size[0]
     height: float = image.get_height() / size[1]
@@ -78,4 +79,4 @@ def seperate_images(image: pg.Surface, size: tuple[int, int]) -> list[pg.Surface
     for i in range(size[1]):
         for j in range(size[0]):
             immages.append(image.subsurface((j * width, i * height, width, height)))
-    return immages
+    return (immages, immages[0].get_rect())
