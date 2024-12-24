@@ -4,10 +4,10 @@ them for use in the game.
 """
 import os
 import pygame as pg
-from config import Config
+from config import config
 
 
-def full_path(file_name:str, image : bool = True) -> str:
+def full_path(file_name:str, image : bool = False) -> str:
     """Return the full path of a file in the recources directory.
 
     Args:
@@ -20,7 +20,7 @@ def full_path(file_name:str, image : bool = True) -> str:
     if not image:
         # Only executed if it is a sound file
         return os.path.abspath(os.path.join(os.path.dirname(__file__), "sounds", file_name))
-    color_theme: str = str(Config.get_color_theme)
+    color_theme = config.color_theme
     return os.path.abspath(os.path.join(
         os.path.dirname(__file__), "images", color_theme, file_name))
 
