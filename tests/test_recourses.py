@@ -9,7 +9,7 @@ class TestLoadImage(unittest.TestCase):
     def setUp(self) -> None:
         """Initialize the pygame module and create a display surface for the tests."""
         pg.init()
-        screen: pg.Surface = pg.display.set_mode((100, 100))
+        pg.display.set_mode((100, 100))
 
     def test_load_image_error(self) -> None:
         with self.assertRaises(SystemExit):
@@ -27,7 +27,7 @@ class TestSeperateImages(unittest.TestCase):
     def setUp(self) -> None:
         """Initialize the pygame module and create a display surface for the tests."""
         pg.init()
-        screen: pg.Surface = pg.display.set_mode((100, 100))
+        pg.display.set_mode((100, 100))
     def test_seperate_images(self) -> None:
         image: pg.Surface = load_image("light_gray", "birds.png")
         images: list[pg.Surface] = seperate_images(image, (2, 1))
