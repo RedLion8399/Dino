@@ -11,6 +11,7 @@ classes:
 from enum import Enum
 from typing import Final
 import pygame as pg
+from recourses import load_image, seperate_images
 
 class Status(Enum):
     """This class contains the status of the dino.
@@ -32,14 +33,20 @@ class Dino:
     Atributes:
         position: The vertical position of the dino.
         status: The status of the dino as an enum of the Status class.
+        color_theme: The color theme of the dino as a string.
 
     Methods:
         update: calls the specific method for the current state of the dino.
         check_collision: checks if the dino collides with an object.
     """
-    def __init__(self) -> None:
+    def __init__(self, color_theme : str = "light_gray") -> None:
         self.y_position: int = 20
         self.status: Status = Status.RUNNING
+        self.color_theme: str = color_theme
+
+        self.running_image: tuple[list[pg.Surface], pg.Rect]
+        self.sneaking_image: tuple[list[pg.Surface], pg.Rect]
+        self.load_images()
 
     def process_input(self, event: pg.event.Event) -> None:
         """This function gets the input from the user.
@@ -86,3 +93,10 @@ class Dino:
 
     def check_collision(self) -> bool:
         raise NotImplementedError("Subclasses must implement the check_collision method.")
+
+    def load_images(self) -> None:
+        """This function loads the images for the dino."""
+        self.running_image = seperate_images(
+            load_image(self.color_theme, "dino_running.png")[0], (5, 1))
+        self.sneaking_image = seperate_images(
+            load_image(self.color_theme, "dino_sneaking.png")[0], (2, 1))
