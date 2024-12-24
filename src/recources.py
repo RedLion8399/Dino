@@ -6,7 +6,7 @@ import os
 import pygame as pg
 
 
-def full_path(color_theme:str, file_name:str) -> str:
+def full_path(file_name:str, color_theme:str="") -> str:
     """Return the full path of a file in the recources directory.
 
     Args:
@@ -16,9 +16,12 @@ def full_path(color_theme:str, file_name:str) -> str:
     Returns:
         str: The full path of the file.
     """
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), color_theme, file_name))
+    if not color_theme:
+        # Only executed if it is a sound file
+        return os.path.abspath(os.path.join(os.path.dirname(__file__), "sounds", file_name))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "images", color_theme, file_name))
 
-def load_image(file_name:str, color_theme:str) -> pg.Surface:
+def load_image(color_theme:str, file_name:str) -> pg.Surface:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
@@ -28,7 +31,7 @@ def load_image(file_name:str, color_theme:str) -> pg.Surface:
     Returns:
         image (pg.Surface): The loaded image as a pygame.Surface object.
     """
-    path: str = full_path(color_theme, file_name)
+    path: str = full_path(file_name, color_theme)
     try:
         image: pg.Surface = pg.image.load(path).convert_alpha()
     except FileNotFoundError as error:
@@ -47,11 +50,11 @@ def load_sound(file_name:str) -> pg.mixer.Sound:
     Returns:
         sound (pg.mixer.Sound): The loaded sound as a pygame.mixer.Sound object.
     """
-    file_path: str = f"src/sounds/{file_name}"
+    path: str = full_path(file_name)
     try:
-        sound: pg.mixer.Sound = pg.mixer.Sound(file_path)
+        sound: pg.mixer.Sound = pg.mixer.Sound(path)
     except FileNotFoundError as error:
-        raise SystemExit(f"Could not load sound '{file_path}' : {str(error)}") from error
+        raise SystemExit(f"Could not load sound '{path}' : {str(error)}") from error
     return sound
 
 def seperate_images(image: pg.Surface, size: tuple[int, int]) -> list[pg.Surface]:
