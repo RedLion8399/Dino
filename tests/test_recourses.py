@@ -1,5 +1,6 @@
 """This module contains the tests for the recources module."""
 # pylint: disable=missing-function-docstring, missing-class-docstring
+# pylint: disable=no-member, unused-variable
 import unittest
 import pygame as pg
 from recourses import load_image, load_sound, seperate_images
@@ -31,3 +32,12 @@ class TestSeperateImages(unittest.TestCase):
         image: pg.Surface = load_image("light_gray", "birds.png")
         images: list[pg.Surface] = seperate_images(image, (2, 1))
         self.assertEqual(len(images), 2)
+
+class TestLoadSound(unittest.TestCase):
+    def test_load_sound_error(self) -> None:
+        with self.assertRaises(SystemExit):
+            load_sound("not_found.wav")
+
+    def test_load_sound(self) -> None:
+        sound: pg.mixer.Sound = load_sound("die.wav")
+        self.assertIsInstance(sound, pg.mixer.Sound)
