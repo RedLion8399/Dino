@@ -54,3 +54,13 @@ class Bird(GameElement):
         self.image: tuple[list[pg.Surface], pg.Rect]
         self.image = seperate_images(load_image("birds.png")[0], (2, 1))
         self.rect = self.image[1]
+
+
+class Cloud(GameElement):
+    """This class represents a Cloud element in the game.
+    It is a subclass of the GameElement class.
+    It has a rect attribute that represents its position and size.
+    """
+    def __init__(self, x_position:float, y_position:float) -> None:
+        super().__init__(x_position, y_position)
+        self.current_image, self.rect = load_image("cloud.png")
