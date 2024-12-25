@@ -8,11 +8,15 @@ from dino import Dino, Status
 
 class TestDino(unittest.TestCase):
     """This class contains the tests for the Dino class."""
+    def setUp(self) -> None:
+        pg.init()
+        pg.display.set_mode((800, 600))
 
     def test_init(self) -> None:
         """This function tests the initialization of the Dino class."""
         dino: Dino = Dino()
-        self.assertEqual(dino.y_position, 20)
+        self.assertEqual(dino.y_position, 100)
+        self.assertEqual(dino.x_position, 20)
         self.assertEqual(dino.status, Status.RUNNING)
 
     # The following functions tests the process_input method of the Dino class.

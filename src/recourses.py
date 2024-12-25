@@ -24,7 +24,7 @@ def full_path(file_name:str, image : bool = False) -> str:
     return os.path.abspath(os.path.join(
         os.path.dirname(__file__), "images", color_theme, file_name))
 
-def load_image(file_name:str) -> pg.Surface:
+def load_image(file_name:str) -> tuple[pg.Surface, pg.Rect]:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
