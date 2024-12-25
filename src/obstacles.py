@@ -63,4 +63,4 @@ class Cloud(GameElement):
     """
     def __init__(self, x_position:float, y_position:float) -> None:
         super().__init__(x_position, y_position)
-        self.current_image, self.rect = load_image("clouds.png")
+        self.current_image, self.rect = load_image("cloud.png")
