@@ -12,6 +12,7 @@ from enum import Enum
 from typing import Final
 import pygame as pg
 from recourses import load_image, seperate_images
+from obstacles import GameElement
 
 class Status(Enum):
     """This class contains the status of the dino.
@@ -26,7 +27,7 @@ class Status(Enum):
     SNEAKING = 3
 
 
-class Dino:
+class Dino(GameElement):
     """This class contains the behaviour of the dino.
     The dino is the main character of the game and is controlled by the player.
     It can run, jump and sneak.
@@ -39,10 +40,9 @@ class Dino:
         update: calls the specific method for the current state of the dino.
         check_collision: checks if the dino collides with an object.
     """
-    def __init__(self, color_theme : str = "light_gray") -> None:
-        self.y_position: int = 20
+    def __init__(self) -> None:
+        super().__init__(20, 100)
         self.status: Status = Status.RUNNING
-        self.color_theme: str = color_theme
 
         self.running_image: tuple[list[pg.Surface], pg.Rect]
         self.sneaking_image: tuple[list[pg.Surface], pg.Rect]
@@ -97,6 +97,6 @@ class Dino:
     def load_images(self) -> None:
         """This function loads the images for the dino."""
         self.running_image = seperate_images(
-            load_image(self.color_theme, "dino_running.png")[0], (5, 1))
+            load_image("dino_running.png")[0], (5, 1))
         self.sneaking_image = seperate_images(
-            load_image(self.color_theme, "dino_sneaking.png")[0], (2, 1))
+            load_image("dino_sneaking.png")[0], (2, 1))
