@@ -16,12 +16,14 @@ class TestLoadImage(unittest.TestCase):
             load_image("not_found.png")
 
     def test_load_image(self) -> None:
-        image: pg.Surface = load_image("birds.png")
-        self.assertIsInstance(image, pg.Surface)
+        image: tuple[pg.Surface, pg.Rect] = load_image("birds.png")
+        self.assertIsInstance(image, tuple)
+        self.assertIsInstance(image[0], pg.Surface)
+        self.assertIsInstance(image[1], pg.Rect)
 
     def test_load_image_colorkey(self) -> None:
-        image: pg.Surface = load_image("birds.png")
-        self.assertEqual(image.get_at((1, 1)), (0, 0, 0, 0))
+        image: tuple[pg.Surface, pg.Rect] = load_image("birds.png")
+        self.assertEqual(image[0].get_at((1, 1)), (0, 0, 0, 0))
 
 class TestSeperateImages(unittest.TestCase):
     def setUp(self) -> None:
@@ -29,8 +31,8 @@ class TestSeperateImages(unittest.TestCase):
         pg.init()
         pg.display.set_mode((100, 100))
     def test_seperate_images(self) -> None:
-        image: pg.Surface = load_image("birds.png")
-        images: list[pg.Surface] = seperate_images(image, (2, 1))
+        image: tuple[pg.Surface, pg.Rect] = load_image("birds.png")
+        images: tuple[list[pg.Surface], pg.Rect] = seperate_images(image[0], (2, 1))
         self.assertEqual(len(images), 2)
 
 class TestLoadSound(unittest.TestCase):
