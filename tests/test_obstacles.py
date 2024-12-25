@@ -2,8 +2,9 @@
 # pylint: disable=missing-docstring, no-member
 import unittest
 import pygame as pg
-from obstacles import GameElement, Cactus
 from config import config
+from obstacles import GameElement, Cactus, Bird
+
 
 class TestGameElement(unittest.TestCase):
     def setUp(self) -> None:
@@ -15,7 +16,7 @@ class TestGameElement(unittest.TestCase):
         game_element = GameElement(0, 0)
         self.assertEqual(game_element.x_position, 0)
         self.assertEqual(game_element.y_position, 0)
-    
+
     def test_move(self):
         game_element = GameElement(0, 0)
         game_element.move(9)
@@ -48,3 +49,18 @@ class TestCactus(unittest.TestCase):
         self.assertIsInstance(cactus.image_2[0], list)
         self.assertIsInstance(cactus.image_1[1], pg.Rect)
         self.assertIsInstance(cactus.image_2[1], pg.Rect)
+
+
+class TestBird(unittest.TestCase):
+    def setUp(self) -> None:
+        pg.init()
+        pg.display.set_mode((800, 600))
+
+    def test_init_position(self):
+        bird = Bird(0, 0)
+        self.assertEqual(bird.x_position, 0)
+        self.assertEqual(bird.y_position, 0)
+
+    def test_init_images(self):
+        bird = Bird(0, 0)
+        self.assertIsInstance(bird.image, tuple)
