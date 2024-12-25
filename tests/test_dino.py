@@ -57,6 +57,11 @@ class TestDino(unittest.TestCase):
         dino.status = Status.JUMPING
         dino.process_input(event)
         self.assertEqual(dino.status, Status.JUMPING)
+    
+    def test_load_images(self) -> None:
+        dino: Dino = Dino()
+        self.assertIsInstance(dino.running_image, tuple)
+        self.assertIsInstance(dino.sneaking_image, tuple)
 
 
 class TestStatus(unittest.TestCase):

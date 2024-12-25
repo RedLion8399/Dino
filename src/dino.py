@@ -89,6 +89,7 @@ class Dino(GameElement):
         raise NotImplementedError("Subclasses must implement the sneak method.")
 
     def check_collision(self) -> bool:
+        """This function checks if the dino collides with an object."""
         raise NotImplementedError("Subclasses must implement the check_collision method.")
 
     def load_images(self) -> None:
