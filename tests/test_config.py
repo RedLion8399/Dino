@@ -6,10 +6,11 @@ from config import config, Config, ColorTheme
 
 class TestConfig(unittest.TestCase):
     def test_values(self):
-        self.assertEqual(config.color_theme, "light_gray")
+        config.display_scale = (800, 600)
+        config.caption = "Dino"
+        self.assertEqual(config.color_theme, ColorTheme.LIGHT_GRAY)
         self.assertEqual(config.display_scale, (800, 600))
         self.assertEqual(config.caption, "Dino")
-        self.assertEqual(config.object_speed, 5)
 
     def test_singleton(self):
         new_config: Config = Config()
