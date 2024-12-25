@@ -25,7 +25,7 @@ class Config:
         self.color_theme: ColorTheme = ColorTheme.LIGHT_GRAY
         self.display_scale: tuple[int, int]
         self.caption: str
-        self.object_speed: int
+        self.object_speed: int = 0
         self.window: pg.Surface
 
     def init_screen(self) -> None:

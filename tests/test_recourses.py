@@ -2,8 +2,9 @@
 # pylint: disable=missing-function-docstring, missing-class-docstring
 # pylint: disable=no-member, unused-variable
 import unittest
+import os
 import pygame as pg
-from recourses import load_image, load_sound, seperate_images
+from recourses import load_image, load_sound, seperate_images, full_path
 
 class TestLoadImage(unittest.TestCase):
     def setUp(self) -> None:
@@ -47,3 +48,13 @@ class TestLoadSound(unittest.TestCase):
     def test_load_sound(self) -> None:
         sound: pg.mixer.Sound = load_sound("die.wav")
         self.assertIsInstance(sound, pg.mixer.Sound)
+
+class TestFullPath(unittest.TestCase):
+
+    def test_full_path_image(self) -> None:
+        path: str = full_path("birds.png", True)
+        self.assertTrue(os.path.exists(path))
+
+    def test_full_path_sound(self) -> None:
+        path: str = full_path("die.wav")
+        self.assertTrue(os.path.exists(path))

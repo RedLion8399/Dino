@@ -11,6 +11,7 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.color_theme, ColorTheme.LIGHT_GRAY)
         self.assertEqual(config.display_scale, (800, 600))
         self.assertEqual(config.caption, "Dino")
+        self.assertEqual(config.object_speed, 0)
 
     def test_singleton(self):
         new_config: Config = Config()
