@@ -64,3 +64,19 @@ class Cloud(GameElement):
     def __init__(self, x_position:float, y_position:float) -> None:
         super().__init__(x_position, y_position)
         self.current_image, self.rect = load_image("cloud.png")
+
+
+class Ground(GameElement):
+    """This class represents a Ground element in the game.
+    It is a subclass of the GameElement class.
+    It has a rect attribute that represents its position and size.
+    """
+    def __init__(self, x_position:float, y_position:float) -> None:
+        super().__init__(x_position, y_position)
+        self.immage_1: pg.Surface
+        self.immage_2: pg.Surface
+        self.rect_1: pg.Rect
+        self.rect_2: pg.Rect
+
+        self.immage_1, self.rect_1 = load_image("ground.png")
+        self.immage_2, self.rect_2 = load_image("ground.png")

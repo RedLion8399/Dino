@@ -3,7 +3,7 @@
 import unittest
 import pygame as pg
 from config import config
-from obstacles import GameElement, Cactus, Bird, Cloud
+from obstacles import GameElement, Cactus, Bird, Cloud, Ground
 
 
 class TestGameElement(unittest.TestCase):
@@ -80,3 +80,22 @@ class TestCloud(unittest.TestCase):
         cloud = Cloud(0, 0)
         self.assertTrue(cloud.current_image)
         self.assertTrue(cloud.rect)
+
+
+class TestGround(unittest.TestCase):
+    def setUp(self) -> None:
+        pg.init()
+        pg.display.set_mode((800, 600))
+
+    def test_init_position(self):
+        ground = Ground(0, 0)
+        self.assertEqual(ground.x_position, 0)
+        self.assertEqual(ground.y_position, 0)
+
+    def test_init_images(self):
+        ground = Ground(0, 0)
+        self.assertTrue(ground.immage_1)
+        self.assertTrue(ground.immage_2)
+        self.assertTrue(ground.rect_1)
+        self.assertTrue(ground.rect_2)
+
