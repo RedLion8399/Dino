@@ -1,8 +1,10 @@
 """This module contains the tests for the config module."""
+
 # pylint: disable=missing-docstring
 
 import unittest
 from config import config, Config, ColorTheme
+
 
 class TestConfig(unittest.TestCase):
     def test_values(self):

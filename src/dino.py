@@ -5,6 +5,7 @@ classes:
     Dino: This class contains the behaviour of the dino.
     Status: This class contains the status of the dino as an enum.
 """
+
 # pylint: disable=no-member
 # pylint: disable=unused-private-member
 
@@ -14,6 +15,7 @@ import pygame as pg
 from recourses import load_image, seperate_images
 from obstacles import GameElement
 
+
 class Status(Enum):
     """This class contains the status of the dino.
     The status displays the current state of the dino.
@@ -22,6 +24,7 @@ class Status(Enum):
         JUMPING: The dino is jumping.
         SNEAKING: The dino is sneaking.
     """
+
     RUNNING = 1
     JUMPING = 2
     SNEAKING = 3
@@ -40,6 +43,7 @@ class Dino(GameElement):
         update: calls the specific method for the current state of the dino.
         check_collision: checks if the dino collides with an object.
     """
+
     def __init__(self) -> None:
         super().__init__(20, 100)
         self.status: Status = Status.RUNNING
@@ -57,7 +61,7 @@ class Dino(GameElement):
 
         Args:
             event: The event that was triggered by the user
-        
+
         Variables:
             JUMP_KEYS: list of integers that represent the keys that make the dino jump.
             SNEAK_KEYS: list of integers that represent the keys that make the dino sneak.
@@ -67,7 +71,10 @@ class Dino(GameElement):
             >>> for event in pg.event.get():
             >>>     dino.process_input(event)
         """
-        JUMP_KEYS: Final[list[int]] = [pg.K_UP, pg.K_SPACE]  # pylint: disable=invalid-name
+        JUMP_KEYS: Final[list[int]] = [
+            pg.K_UP,
+            pg.K_SPACE,
+        ]  # pylint: disable=invalid-name
         SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]  # pylint: disable=invalid-name
 
         if event.type == pg.KEYDOWN:
@@ -90,11 +97,13 @@ class Dino(GameElement):
 
     def check_collision(self) -> bool:
         """This function checks if the dino collides with an object."""
-        raise NotImplementedError("Subclasses must implement the check_collision method.")
+        raise NotImplementedError(
+            "Subclasses must implement the check_collision method."
+        )
 
     def load_images(self) -> None:
         """This function loads the images for the dino."""
-        self.running_image = seperate_images(
-            load_image("dino_running.png")[0], (5, 1))
+        self.running_image = seperate_images(load_image("dino_running.png")[0], (5, 1))
         self.sneaking_image = seperate_images(
-            load_image("dino_sneaking.png")[0], (2, 1))
+            load_image("dino_sneaking.png")[0], (2, 1)
+        )

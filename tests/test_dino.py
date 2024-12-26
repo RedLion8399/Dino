@@ -1,4 +1,5 @@
 """This module contains the tests for the dino module."""
+
 # pylint: disable=no-member
 # pylint: disable=missing-function-docstring
 
@@ -6,8 +7,10 @@ import unittest
 import pygame as pg
 from dino import Dino, Status
 
+
 class TestDino(unittest.TestCase):
     """This class contains the tests for the Dino class."""
+
     def setUp(self) -> None:
         pg.init()
         pg.display.set_mode((800, 600))
@@ -57,7 +60,7 @@ class TestDino(unittest.TestCase):
         dino.status = Status.JUMPING
         dino.process_input(event)
         self.assertEqual(dino.status, Status.JUMPING)
-    
+
     def test_load_images(self) -> None:
         dino: Dino = Dino()
         self.assertIsInstance(dino.running_image, tuple)

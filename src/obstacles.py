@@ -13,7 +13,8 @@ class GameElement(pg.sprite.Sprite):
     It is a subclass of the pygame.sprite.Sprite class.
     It has a rect attribute that represents its position and size.
     """
-    def __init__(self, x_position:float, y_position:float) -> None:
+
+    def __init__(self, x_position: float, y_position: float) -> None:
         super().__init__()
         self.x_position: float = x_position
         self.y_position: float = y_position
@@ -26,7 +27,7 @@ class GameElement(pg.sprite.Sprite):
         self.rect.update((self.x_position, self.y_position), self.rect.size)
         config.window.blit(self.current_image, self.rect)
 
-    def move(self, speed:float) -> None:
+    def move(self, speed: float) -> None:
         """Move the element in the game."""
         self.x_position -= speed
 
@@ -36,7 +37,8 @@ class Cactus(GameElement):
     It is a subclass of the GameElement class.
     It has a rect attribute that represents its position and size.
     """
-    def __init__(self, x_position:float, y_position:float) -> None:
+
+    def __init__(self, x_position: float, y_position: float) -> None:
         super().__init__(x_position, y_position)
         self.image_1: tuple[list[pg.Surface], pg.Rect]
         self.image_2: tuple[list[pg.Surface], pg.Rect]
@@ -49,7 +51,8 @@ class Bird(GameElement):
     It is a subclass of the GameElement class.
     It has a rect attribute that represents its position and size.
     """
-    def __init__(self, x_position:float, y_position:float) -> None:
+
+    def __init__(self, x_position: float, y_position: float) -> None:
         super().__init__(x_position, y_position)
         self.image: tuple[list[pg.Surface], pg.Rect]
         self.image = seperate_images(load_image("birds.png")[0], (2, 1))
@@ -61,7 +64,8 @@ class Cloud(GameElement):
     It is a subclass of the GameElement class.
     It has a rect attribute that represents its position and size.
     """
-    def __init__(self, x_position:float, y_position:float) -> None:
+
+    def __init__(self, x_position: float, y_position: float) -> None:
         super().__init__(x_position, y_position)
         self.current_image, self.rect = load_image("cloud.png")
 
@@ -71,7 +75,8 @@ class Ground(GameElement):
     It is a subclass of the GameElement class.
     It has a rect attribute that represents its position and size.
     """
-    def __init__(self, x_position:float, y_position:float) -> None:
+
+    def __init__(self, x_position: float, y_position: float) -> None:
         super().__init__(x_position, y_position)
         self.immage_1: pg.Surface
         self.immage_2: pg.Surface

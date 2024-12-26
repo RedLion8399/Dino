@@ -1,5 +1,7 @@
 """This module contains the tests for the obstacles module."""
+
 # pylint: disable=missing-docstring, no-member
+
 import unittest
 import pygame as pg
 from config import config
@@ -98,4 +100,3 @@ class TestGround(unittest.TestCase):
         self.assertTrue(ground.immage_2)
         self.assertTrue(ground.rect_1)
         self.assertTrue(ground.rect_2)
-

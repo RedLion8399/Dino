@@ -3,6 +3,7 @@ It is the file, meant to be called directly to playthe game.
 It initializes the grafics as well as controlls the main game functionalitys
 defined in other modules.
 """
+
 # pylint: disable=no-member
 
 import sys
@@ -27,7 +28,7 @@ WHITE: Final[pg.Color] = pg.Color(255, 255, 255)
 GRAY: Final[pg.Color] = pg.Color(190, 190, 190)
 
 
-def get_input() ->  None:
+def get_input() -> None:
     """This function gets the input from the user.
     It collects all inputs from the previous frame and
     processes them by modyfying the game according to the player wishes.

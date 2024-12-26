@@ -11,6 +11,7 @@ from counter import Counter
 # This results in the hard readable syntax of some tests, like:
 # counter._Counter__load_highscore()
 
+
 class TestCounter(unittest.TestCase):
     """This class contains the tests for the Counter class."""
 
