@@ -11,6 +11,8 @@ classes:
 from enum import Enum
 from typing import Final
 import pygame as pg
+from recourses import load_image, seperate_images
+from obstacles import GameElement
 
 class Status(Enum):
     """This class contains the status of the dino.
@@ -25,21 +27,26 @@ class Status(Enum):
     SNEAKING = 3
 
 
-class Dino:
+class Dino(GameElement):
     """This class contains the behaviour of the dino.
     The dino is the main character of the game and is controlled by the player.
     It can run, jump and sneak.
     Atributes:
         position: The vertical position of the dino.
         status: The status of the dino as an enum of the Status class.
+        color_theme: The color theme of the dino as a string.
 
     Methods:
         update: calls the specific method for the current state of the dino.
         check_collision: checks if the dino collides with an object.
     """
     def __init__(self) -> None:
-        self.y_position: int = 20
+        super().__init__(20, 100)
         self.status: Status = Status.RUNNING
+
+        self.running_image: tuple[list[pg.Surface], pg.Rect]
+        self.sneaking_image: tuple[list[pg.Surface], pg.Rect]
+        self.load_images()
 
     def process_input(self, event: pg.event.Event) -> None:
         """This function gets the input from the user.
@@ -81,8 +88,13 @@ class Dino:
     def __sneak(self) -> None:
         raise NotImplementedError("Subclasses must implement the sneak method.")
 
-    def update(self) -> None:
-        raise NotImplementedError("Subclasses must implement the update method.")
-
     def check_collision(self) -> bool:
+        """This function checks if the dino collides with an object."""
         raise NotImplementedError("Subclasses must implement the check_collision method.")
+
+    def load_images(self) -> None:
+        """This function loads the images for the dino."""
+        self.running_image = seperate_images(
+            load_image("dino_running.png")[0], (5, 1))
+        self.sneaking_image = seperate_images(
+            load_image("dino_sneaking.png")[0], (2, 1))
