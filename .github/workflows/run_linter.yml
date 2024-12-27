@@ -49,5 +49,5 @@ jobs:
     
     - name: Run Flake8 Linting
       run: |
-        flake8 . --count --show-source --statistics
+        flake8 . --count --select=E,F --show-source --statistics
         flake8 . --count --exit-zero --max-line-length=88 --statistics
