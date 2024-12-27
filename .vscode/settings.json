@@ -16,4 +16,7 @@
     "python.testing.autoTestDiscoverOnSaveEnabled": true,
     // Editor settings
     "files.autoSave": "onFocusChange",
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
 }
