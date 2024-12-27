@@ -11,9 +11,11 @@ classes:
 
 from enum import Enum
 from typing import Final
+
 import pygame as pg
-from recourses import load_image, seperate_images
+
 from obstacles import GameElement
+from recourses import load_image, seperate_images
 
 
 class Status(Enum):

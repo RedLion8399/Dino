@@ -3,10 +3,12 @@
 # pylint: disable=missing-function-docstring, missing-class-docstring
 # pylint: disable=no-member, unused-variable
 
-import unittest
 import os
+import unittest
+
 import pygame as pg
-from recourses import load_image, load_sound, seperate_images, full_path
+
+from recourses import full_path, load_image, load_sound, seperate_images
 
 
 class TestLoadImage(unittest.TestCase):

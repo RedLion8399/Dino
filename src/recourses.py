@@ -4,7 +4,9 @@ them for use in the game.
 """
 
 import os
+
 import pygame as pg
+
 from config import config
 
 

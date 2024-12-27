@@ -4,7 +4,9 @@
 # pylint: disable=missing-function-docstring
 
 import unittest
+
 import pygame as pg
+
 from dino import Dino, Status
 
 

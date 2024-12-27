@@ -3,6 +3,7 @@
 # pylint: disable=no-member
 
 from enum import StrEnum
+
 import pygame as pg
 
 

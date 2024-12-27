@@ -3,7 +3,8 @@
 # pylint: disable=missing-docstring
 
 import unittest
-from config import config, Config, ColorTheme
+
+from config import ColorTheme, Config, config
 
 
 class TestConfig(unittest.TestCase):

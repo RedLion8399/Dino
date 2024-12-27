@@ -8,11 +8,12 @@ defined in other modules.
 
 import sys
 from typing import Final
-import pygame as pg
-from dino import Dino
-from counter import Counter
-from config import config, ColorTheme
 
+import pygame as pg
+
+from config import ColorTheme, config
+from counter import Counter
+from dino import Dino
 
 config.color_theme = ColorTheme.LIGHT_GRAY
 config.display_scale = (800, 600)

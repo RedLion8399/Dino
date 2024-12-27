@@ -3,8 +3,8 @@
 import unittest
 from math import floor
 from random import randint
-from counter import Counter
 
+from counter import Counter
 
 # Some of the tests are testing private methods, which is not recommended.
 # However, the tests are necessary to ensure the correct functionality of the class.
