@@ -63,8 +63,7 @@ jobs:
         GIT_COMMITTER_NAME: ${{ steps.import-gpg.outputs.name }}
         GIT_COMMITTER_EMAIL: ${{ steps.import-gpg.outputs.email }}
 
-    # Unused for now activated until the resst works
-    # - name: Run Flake8 Linting
-    #   run: |
-    #     flake8 . --count --select=E,F --show-source --statistics
-    #     flake8 . --count --exit-zero --max-line-length=88 --statistics
+    - name: Run Flake8 Linting
+      run: |
+        flake8 . --count --select=E,F --show-source --statistics
+        flake8 . --count --exit-zero --max-line-length=88 --statistics
