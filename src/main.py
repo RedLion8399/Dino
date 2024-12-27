@@ -43,8 +43,8 @@ def get_input() -> None:
 def game_over() -> None:
     """This function is called when the game is over."""
     counter.save_highscore()
-    sys.exit()
     pg.quit()
+    sys.exit()
 
 
 def main() -> None:
