@@ -54,8 +54,8 @@ jobs:
         git add .
         git commit -m "Format code with black and isort" || echo "No changes to commit"
         git fetch origin
-        git rebase origin/${{ github.head_ref }}
-        git push origin HEAD:${{ github.head_ref }}
+        git rebase origin/${{ github.head_ref || github.ref_name }}
+        git push origin HEAD:${{ github.head_ref || github.ref_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_AUTHOR_NAME: ${{ steps.import-gpg.outputs.name }}
