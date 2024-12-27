@@ -65,18 +65,20 @@ class Dino(GameElement):
             event: The event that was triggered by the user
 
         Variables:
-            JUMP_KEYS: list of integers that represent the keys that make the dino jump.
-            SNEAK_KEYS: list of integers that represent the keys that make the dino sneak.
+            JUMP_KEYS: list of integers that represent
+            the keys that make the dino jump.
+            SNEAK_KEYS: list of integers that represent
+            the keys that make the dino sneak.
 
         Examples:
             >>> dino: Dino = Dino()
             >>> for event in pg.event.get():
             >>>     dino.process_input(event)
         """
-        JUMP_KEYS: Final[list[int]] = [
+        JUMP_KEYS: Final[list[int]] = [  # pylint: disable=invalid-name
             pg.K_UP,
             pg.K_SPACE,
-        ]  # pylint: disable=invalid-name
+        ]
         SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]  # pylint: disable=invalid-name
 
         if event.type == pg.KEYDOWN:
@@ -109,3 +111,12 @@ class Dino(GameElement):
         self.sneaking_image = seperate_images(
             load_image("dino_sneaking.png")[0], (2, 1)
         )
+
+    def update(self, speed: float = 0) -> None:
+        super().update(speed)
+        if self.status == Status.RUNNING:
+            self.__run()
+        if self.status == Status.JUMPING:
+            self.__jump()
+        if self.status == Status.SNEAKING:
+            self.__sneak()

@@ -1,6 +1,6 @@
 """This module manages the external resources of the game.
-It is responsible for loading and storing the images and sounds from their files and preparing
-them for use in the game.
+It is responsible for loading and storing the images and sounds from
+their files and preparing them for use in the game.
 """
 
 import os
@@ -81,7 +81,8 @@ def seperate_images(
         size (tuple[int, int]): The amount of the image to seperate. (width, height)
 
     Returns:
-        touple[List[pg.Surface], Rect]: List of the seperated images and their regt representation.
+        touple[List[pg.Surface], Rect]: List of the seperated images
+        and their regt representation.
     """
     width: float = image.get_width() / size[0]
     height: float = image.get_height() / size[1]
