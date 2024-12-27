@@ -3,13 +3,14 @@
 import unittest
 from math import floor
 from random import randint
-from counter import Counter
 
+from counter import Counter
 
 # Some of the tests are testing private methods, which is not recommended.
 # However, the tests are necessary to ensure the correct functionality of the class.
 # This results in the hard readable syntax of some tests, like:
 # counter._Counter__load_highscore()
+
 
 class TestCounter(unittest.TestCase):
     """This class contains the tests for the Counter class."""

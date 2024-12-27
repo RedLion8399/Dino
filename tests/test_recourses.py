@@ -1,10 +1,15 @@
 """This module contains the tests for the recources module."""
+
 # pylint: disable=missing-function-docstring, missing-class-docstring
 # pylint: disable=no-member, unused-variable
-import unittest
+
 import os
+import unittest
+
 import pygame as pg
-from recourses import load_image, load_sound, seperate_images, full_path
+
+from recourses import full_path, load_image, load_sound, seperate_images
+
 
 class TestLoadImage(unittest.TestCase):
     def setUp(self) -> None:
@@ -26,15 +31,18 @@ class TestLoadImage(unittest.TestCase):
         image: tuple[pg.Surface, pg.Rect] = load_image("birds.png")
         self.assertEqual(image[0].get_at((1, 1)), (0, 0, 0, 0))
 
+
 class TestSeperateImages(unittest.TestCase):
     def setUp(self) -> None:
         """Initialize the pygame module and create a display surface for the tests."""
         pg.init()
         pg.display.set_mode((100, 100))
+
     def test_seperate_images(self) -> None:
         image: tuple[pg.Surface, pg.Rect] = load_image("birds.png")
         images: tuple[list[pg.Surface], pg.Rect] = seperate_images(image[0], (2, 1))
         self.assertEqual(len(images), 2)
+
 
 class TestLoadSound(unittest.TestCase):
     def setUp(self) -> None:
@@ -48,6 +56,7 @@ class TestLoadSound(unittest.TestCase):
     def test_load_sound(self) -> None:
         sound: pg.mixer.Sound = load_sound("die.wav")
         self.assertIsInstance(sound, pg.mixer.Sound)
+
 
 class TestFullPath(unittest.TestCase):
 

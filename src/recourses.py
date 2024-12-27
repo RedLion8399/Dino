@@ -2,12 +2,15 @@
 It is responsible for loading and storing the images and sounds from their files and preparing
 them for use in the game.
 """
+
 import os
+
 import pygame as pg
+
 from config import config
 
 
-def full_path(file_name:str, image : bool = False) -> str:
+def full_path(file_name: str, image: bool = False) -> str:
     """Return the full path of a file in the recources directory.
 
     Args:
@@ -19,18 +22,22 @@ def full_path(file_name:str, image : bool = False) -> str:
     """
     if not image:
         # Only executed if it is a sound file
-        return os.path.abspath(os.path.join(os.path.dirname(__file__), "sounds", file_name))
+        return os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "sounds", file_name)
+        )
     color_theme = config.color_theme
-    return os.path.abspath(os.path.join(
-        os.path.dirname(__file__), "images", color_theme, file_name))
+    return os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "images", color_theme, file_name)
+    )
 
-def load_image(file_name:str) -> tuple[pg.Surface, pg.Rect]:
+
+def load_image(file_name: str) -> tuple[pg.Surface, pg.Rect]:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
         file_name (str): The name of the file to load.
         color_theme (str): The color theme of the image.
-    
+
     Returns:
         tuple[pg.Surface, pg.Rect]: The loaded image as a pygame.Surface object
         and its rect representation.
@@ -45,12 +52,13 @@ def load_image(file_name:str) -> tuple[pg.Surface, pg.Rect]:
     image.set_colorkey(image.get_at((0, 0)))
     return (image, image.get_rect())
 
-def load_sound(file_name:str) -> pg.mixer.Sound:
+
+def load_sound(file_name: str) -> pg.mixer.Sound:
     """Load a sound from a file and return it as a pygame.mixer.Sound object.
 
     Args:
         file_name (str): The name of the file to load.
-    
+
     Returns:
         sound (pg.mixer.Sound): The loaded sound as a pygame.mixer.Sound object.
     """
@@ -61,14 +69,17 @@ def load_sound(file_name:str) -> pg.mixer.Sound:
         raise SystemExit(f"Could not load sound '{path}' : {str(error)}") from error
     return sound
 
-def seperate_images(image: pg.Surface, size: tuple[int, int]) -> tuple[list[pg.Surface], pg.Rect]:
+
+def seperate_images(
+    image: pg.Surface, size: tuple[int, int]
+) -> tuple[list[pg.Surface], pg.Rect]:
     """Seperate an image into smaller images of a given size.
     All of them must have the same size and must be ordered in a grid.
 
     Args:
         image (pg.Surface): The image to seperate.
         size (tuple[int, int]): The amount of the image to seperate. (width, height)
-    
+
     Returns:
         touple[List[pg.Surface], Rect]: List of the seperated images and their regt representation.
     """

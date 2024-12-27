@@ -1,12 +1,15 @@
 """This module provides the global configuration for the game."""
+
 # pylint: disable=no-member
 
 from enum import StrEnum
+
 import pygame as pg
 
 
 class ColorTheme(StrEnum):
     """This class represents the color themes of the game as enums."""
+
     LIGHT_GRAY = "light_gray"
 
 
