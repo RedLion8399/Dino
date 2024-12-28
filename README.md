@@ -21,6 +21,8 @@
 
 
 ## :cactus: About the project
+This project is a recreation of the iconic Chrome Dino game, designed as a school project in a computer science class. The primary purpose is to introduce 10th graders to the fundamentals of Python programming through a fun and engaging hands-on project. The task is to break down the concepts included in the project to ensure they are understandable to our schoolmates.
+
 
 ## :books: Table of content
 - [Chrome Dino Game  ](#chrome-dino-game--)
