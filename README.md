@@ -19,11 +19,17 @@
 ## :rocket: Getting started
 
 ## :bug: How to Contribute and Report Issues
+If you like the project and want to take part in the projekt you are welcom. Just fork the repo and try out what you want. As mentioned earlier this repo is intendet to students beginning with programming to understand basic concepts of programming and contribution using git and GitHub.
+
+To suggest new features or reporting bugs aou can open an [issue](https://github.com/RedLion8399/Dino/issues) directly here on GitHub. There are already pre-formatted issuetemplates to help you writing a consistent issue that is hopefully easy to understand and process. These templates should cover most possible cases. Althought if they do not fit to your needs feel free to open an issue without a template.
+
 
 ## :handshake: Acknowledgement
 The graphics used in this project are sourced from the [Runn Gesture Gaming](https://github.com/TusharAMD/Runn) GitHub repository by Tushar Amdoskar (TusharAMD), licensed under the [MIT License](https://github.com/TusharAMD/Runn/blob/master/LICENSE). Special thanks to the original author for providing these resources.
 
+
 ## :scroll: Conclusion and License
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
+
 
 ## :speech_balloon: Contact
