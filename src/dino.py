@@ -5,14 +5,18 @@ classes:
     Dino: This class contains the behaviour of the dino.
     Status: This class contains the status of the dino as an enum.
 """
+
 # pylint: disable=no-member
 # pylint: disable=unused-private-member
 
 from enum import Enum
 from typing import Final
+
 import pygame as pg
-from recourses import load_image, seperate_images
+
 from obstacles import GameElement
+from recourses import load_image, seperate_images
+
 
 class Status(Enum):
     """This class contains the status of the dino.
@@ -22,6 +26,7 @@ class Status(Enum):
         JUMPING: The dino is jumping.
         SNEAKING: The dino is sneaking.
     """
+
     RUNNING = 1
     JUMPING = 2
     SNEAKING = 3
@@ -40,6 +45,7 @@ class Dino(GameElement):
         update: calls the specific method for the current state of the dino.
         check_collision: checks if the dino collides with an object.
     """
+
     def __init__(self) -> None:
         super().__init__(20, 100)
         self.status: Status = Status.RUNNING
@@ -57,17 +63,22 @@ class Dino(GameElement):
 
         Args:
             event: The event that was triggered by the user
-        
+
         Variables:
-            JUMP_KEYS: list of integers that represent the keys that make the dino jump.
-            SNEAK_KEYS: list of integers that represent the keys that make the dino sneak.
+            JUMP_KEYS: list of integers that represent
+            the keys that make the dino jump.
+            SNEAK_KEYS: list of integers that represent
+            the keys that make the dino sneak.
 
         Examples:
             >>> dino: Dino = Dino()
             >>> for event in pg.event.get():
             >>>     dino.process_input(event)
         """
-        JUMP_KEYS: Final[list[int]] = [pg.K_UP, pg.K_SPACE]  # pylint: disable=invalid-name
+        JUMP_KEYS: Final[list[int]] = [  # pylint: disable=invalid-name
+            pg.K_UP,
+            pg.K_SPACE,
+        ]
         SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]  # pylint: disable=invalid-name
 
         if event.type == pg.KEYDOWN:
@@ -90,11 +101,22 @@ class Dino(GameElement):
 
     def check_collision(self) -> bool:
         """This function checks if the dino collides with an object."""
-        raise NotImplementedError("Subclasses must implement the check_collision method.")
+        raise NotImplementedError(
+            "Subclasses must implement the check_collision method."
+        )
 
     def load_images(self) -> None:
         """This function loads the images for the dino."""
-        self.running_image = seperate_images(
-            load_image("dino_running.png")[0], (5, 1))
+        self.running_image = seperate_images(load_image("dino_running.png")[0], (5, 1))
         self.sneaking_image = seperate_images(
-            load_image("dino_sneaking.png")[0], (2, 1))
+            load_image("dino_sneaking.png")[0], (2, 1)
+        )
+
+    def update(self, speed: float = 0) -> None:
+        super().update(speed)
+        if self.status == Status.RUNNING:
+            self.__run()
+        if self.status == Status.JUMPING:
+            self.__jump()
+        if self.status == Status.SNEAKING:
+            self.__sneak()
