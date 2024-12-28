@@ -33,3 +33,4 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 
 ## :speech_balloon: Contact
+If you ever eed to cantact us exept those things outlined in the [Contributions chapter](#bug-how-to-contribute-and-report-issues) you can open a [discussion](https://github.com/RedLion8399/Dino/discussions) directly here on GitHub. Most things about the project can be discussed there. In case this option does not fit to your needs you can also write an email. Our contacts are available in the [pyproject.toml file.](./pyproject.toml)
