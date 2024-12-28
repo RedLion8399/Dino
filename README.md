@@ -1,5 +1,23 @@
 # Chrome Dino Game  <!-- -Sth. funny as intern titel -->
 
+![GitHub Repo stars](https://img.shields.io/github/stars/RedLion8399/Dino)
+![GitHub forks](https://img.shields.io/github/forks/RedLion8399/Dino)
+![Schulprojekt](https://img.shields.io/badge/School_project-green?link=gymnasium-warstein.de)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/RedLion8399/Dino)
+![GitHub last commit](https://img.shields.io/github/last-commit/RedLion8399/Dino)
+![GitHub repo size](https://img.shields.io/github/repo-size/RedLion8399/Dino)
+![GitHub language count](https://img.shields.io/github/languages/count/RedLion8399/Dino)
+![GitHub top language](https://img.shields.io/github/languages/top/RedLion8399/Dino)
+![Tests status](https://img.shields.io/github/actions/workflow/status/RedLion8399/Dino/run_tests.yml?label=Tests)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/RedLion8399/Dino/run_linter.yml?label=Style)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/RedLion8399/Dino)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/RedLion8399/Dino)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr/RedLion8399/Dino)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-closed/RedLion8399/Dino)
+![GitHub License](https://img.shields.io/github/license/RedLion8399/Dino)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/RedLion8399/Dino/total)
+
+
 ## :cactus: About the project
 
 ## :books: Table of content
