@@ -27,5 +27,8 @@
         "bierner.markdown-emoji",
         "bierner.markdown-footnotes",
         "saeris.markdown-github-alerts",
+        "yzhang.markdown-all-in-one",
+        "tianyishi.rmarkdown",
+        "fantasy.markdown-all-in-one-for-web",
     ]
 }
