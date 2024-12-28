@@ -42,6 +42,7 @@ This project is a recreation of the iconic Chrome Dino game, designed as a schoo
 
 
 ## :star: Project Overview and Features
+At the moment, the fundamental game elements are implemented, but they are not yet connected in the main entry point.Consequently any of these parts can be executed and the game is still completely useless.
 
 ## :rocket: Getting started
 As mentioned earlier this project is intendet to explane students basic programming concepts so the explanations how to install and use the programm are much more detailed than you are used to read here o GitHub.
