@@ -5,6 +5,8 @@
 ![Schulprojekt](https://img.shields.io/badge/School_project-green?link=gymnasium-warstein.de)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/RedLion8399/Dino)
 ![GitHub last commit](https://img.shields.io/github/last-commit/RedLion8399/Dino)
+[![GitHub commits](https://badgen.net/github/commits/RedLion8399/Dino)](https://GitHub.com/RedLion8399/Dino/commit/)
+[![GitHub branches](https://badgen.net/github/branches/RedLion8399/Dino)](https://github.com/RedLion8399/Dino/)
 ![GitHub repo size](https://img.shields.io/github/repo-size/RedLion8399/Dino)
 ![GitHub language count](https://img.shields.io/github/languages/count/RedLion8399/Dino)
 ![GitHub top language](https://img.shields.io/github/languages/top/RedLion8399/Dino)
