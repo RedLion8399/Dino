@@ -21,6 +21,7 @@
 ## :bug: How to Contribute and Report Issues
 
 ## :handshake: Acknowledgement
+The graphics used in this project are sourced from the [Runn Gesture Gaming](https://github.com/TusharAMD/Runn) GitHub repository by Tushar Amdoskar (TusharAMD), licensed under the [MIT License](https://github.com/TusharAMD/Runn/blob/master/LICENSE). Special thanks to the original author for providing these resources.
 
 ## :scroll: Conclusion and License
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
