@@ -7,7 +7,6 @@ defined in other modules.
 # pylint: disable=no-member
 
 import sys
-from typing import Final
 
 import pygame as pg
 
@@ -28,11 +27,6 @@ def main() -> None:
 
     counter: Counter = Counter()
     dino: Dino = Dino()
-
-    # Initializes the colors
-    BLACK: Final[pg.Color] = pg.Color(0, 0, 0)
-    WHITE: Final[pg.Color] = pg.Color(255, 255, 255)
-    GRAY: Final[pg.Color] = pg.Color(190, 190, 190)
 
     def get_input() -> None:
         """This function gets the input from the user.
