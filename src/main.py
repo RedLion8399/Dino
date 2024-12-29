@@ -18,6 +18,7 @@ from dino import Dino
 config.color_theme = ColorTheme.LIGHT_GRAY
 config.display_scale = (800, 600)
 config.caption = "Dino"
+config.background_color = pg.Color(255, 255, 255)
 config.init_screen()
 
 counter: Counter = Counter()
@@ -55,6 +56,7 @@ def main() -> None:
     while True:
         get_input()
         counter.count()
+        pg.display.flip()
     game_over()
 
 
