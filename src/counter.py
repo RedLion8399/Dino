@@ -55,3 +55,18 @@ class Counter:
     def score(self) -> int:
         """This method returns the current score of the player."""
         return self.frames // 3
+
+    @property
+    def dino_running_status(self) -> bool:
+        """Returns the animation status of the dino.
+
+        While the Dino is running or sneaking it has to different immages
+        to change between in order to create a running animation.
+        The animation state changes every 20 frames.
+
+        Returns:
+            bool: The aimaton has only two states so it can be displayed
+            as a boolean. It is irrelevant wich state belongs to wich image
+            and can be difined by the user.
+        """
+        return self.frames % 20 < 10
