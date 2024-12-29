@@ -5,9 +5,9 @@ import unittest
 
 import pygame as pg
 
-from obstacles import GameElement
 from config import config
 from dino import Dino, Status
+from obstacles import GameElement
 
 
 class TestDino(unittest.TestCase):
