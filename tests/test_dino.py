@@ -1,27 +1,23 @@
-"""This module contains the tests for the dino module."""
-
-# pylint: disable=no-member
-# pylint: disable=missing-function-docstring
+# pylint: disable=missing-docstring, disable=no-member, disable=protected-access
+# type: ignore
 
 import unittest
 
 import pygame as pg
 
 from dino import Dino, Status
+from config import config
 
 
 class TestDino(unittest.TestCase):
-    """This class contains the tests for the Dino class."""
-
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.init_screen()
 
     def test_init(self) -> None:
         """This function tests the initialization of the Dino class."""
         dino: Dino = Dino()
-        self.assertEqual(dino.y_position, 100)
-        self.assertEqual(dino.x_position, 20)
+        self.assertEqual(dino.y_position, 200)
+        self.assertEqual(dino.x_position, 200)
         self.assertEqual(dino.status, Status.RUNNING)
 
     # The following functions tests the process_input method of the Dino class.
@@ -68,10 +64,43 @@ class TestDino(unittest.TestCase):
         self.assertIsInstance(dino.running_image, tuple)
         self.assertIsInstance(dino.sneaking_image, tuple)
 
+    def test__run(self) -> None:
+        dino: Dino = Dino()
+        dino.status = Status.RUNNING
+        dino._run()
+        self.assertEqual(dino.rect, dino.running_image[1])
+        self.assertEqual(dino.current_image, dino.running_image[0][2])
+        for _ in range(12):
+            dino.counter.tick()
+            dino._run()
+        self.assertEqual(dino.current_image, dino.running_image[0][3])
+
+    def test__jump(self) -> None:
+        dino: Dino = Dino()
+        dino.status = Status.JUMPING
+        dino._jump()
+        self.assertEqual(dino.rect, dino.running_image[1])
+        self.assertEqual(dino.current_image, dino.running_image[0][0])
+
+    def test__sneak(self) -> None:
+        dino: Dino = Dino()
+        dino.status = Status.SNEAKING
+        dino._sneak()
+        self.assertEqual(dino.rect, dino.sneaking_image[1])
+        self.assertEqual(dino.current_image, dino.sneaking_image[0][0])
+        for _ in range(12):
+            dino.counter.tick()
+            dino._sneak()
+        self.assertEqual(dino.current_image, dino.sneaking_image[0][1])
+
+    def test_update(self) -> None:
+        dino: Dino = Dino()
+        dino.status = Status.JUMPING
+        dino.update()
+        self.assertEqual(dino.current_image, dino.running_image[0][0])
+
 
 class TestStatus(unittest.TestCase):
-    """This class contains the tests for the Status class."""
-
     def test_values(self) -> None:
         """This function tests the initialization of the Status class."""
         self.assertEqual(Status.RUNNING.value, 1)

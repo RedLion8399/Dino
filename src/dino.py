@@ -7,7 +7,6 @@ classes:
 """
 
 # pylint: disable=no-member
-# pylint: disable=unused-private-member
 
 from enum import Enum
 from typing import Final
@@ -16,6 +15,7 @@ import pygame as pg
 
 from obstacles import GameElement
 from recourses import load_image, seperate_images
+from counter import Counter
 
 
 class Status(Enum):
@@ -48,6 +48,7 @@ class Dino(GameElement):
 
     def __init__(self) -> None:
         super().__init__(200, 200)
+        self.counter: Counter = Counter()
         self.status: Status = Status.RUNNING
 
         self.running_image: tuple[list[pg.Surface], pg.Rect]
@@ -90,14 +91,34 @@ class Dino(GameElement):
             if event.key in SNEAK_KEYS and self.status == Status.SNEAKING:
                 self.status = Status.RUNNING
 
-    def __run(self) -> None:
-        raise NotImplementedError("Subclasses must implement the run method.")
+    def _run(self) -> None:
+        """Set the Dino's image to the running image.
 
-    def __jump(self) -> None:
-        raise NotImplementedError("Subclasses must implement the jump method.")
+        The Dino has two images for running. To create a running animation
+        the Dino changes between the two images every 20 frames.
+        """
+        self.rect = self.running_image[1]
+        if self.counter.dino_running_status:
+            self.current_image = self.running_image[0][2]
+        else:
+            self.current_image = self.running_image[0][3]
 
-    def __sneak(self) -> None:
-        raise NotImplementedError("Subclasses must implement the sneak method.")
+    def _jump(self) -> None:
+        """Set the Dino's image to the jumping image."""
+        self.rect = self.running_image[1]
+        self.current_image = self.running_image[0][0]
+
+    def _sneak(self) -> None:
+        """Set the Dino's image to the sneaking image.
+
+        The Dino has two images for sneaking. To create a sneaking animation
+        the Dino changes between the two images every 20 frames.
+        """
+        self.rect = self.sneaking_image[1]
+        if self.counter.dino_running_status:
+            self.current_image = self.sneaking_image[0][0]
+        else:
+            self.current_image = self.sneaking_image[0][1]
 
     def check_collision(self) -> bool:
         """This function checks if the dino collides with an object."""
@@ -113,10 +134,10 @@ class Dino(GameElement):
         )
 
     def update(self, speed: float = 0) -> None:
-        super().update(speed)
         if self.status == Status.RUNNING:
-            self.__run()
+            self._run()
         if self.status == Status.JUMPING:
-            self.__jump()
+            self._jump()
         if self.status == Status.SNEAKING:
-            self.__sneak()
+            self._sneak()
+        super().update(speed)
