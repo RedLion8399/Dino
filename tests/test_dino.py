@@ -5,12 +5,15 @@ import unittest
 
 import pygame as pg
 
+from obstacles import GameElement
 from config import config
 from dino import Dino, Status
 
 
 class TestDino(unittest.TestCase):
     def setUp(self) -> None:
+        config.display_scale = (800, 200)
+        config.caption = "Dino"
         config.init_screen()
 
     def test_init(self) -> None:
@@ -98,6 +101,35 @@ class TestDino(unittest.TestCase):
         dino.status = Status.JUMPING
         dino.update()
         self.assertEqual(dino.current_image, dino.running_image[0][0])
+
+    def test_check_collision_false(self) -> None:
+        dino: Dino = Dino()
+        dino.update()
+        non_colliding = GameElement(500, 200)
+        non_colliding.rect = pg.Rect(500, 200, 50, 50)
+        self.assertFalse(dino.check_collision([non_colliding]))
+
+    def test_check_collision_true(self) -> None:
+        dino: Dino = Dino()
+        dino.update()
+        colliding = GameElement(200, 200)
+        colliding.rect = pg.Rect(200, 200, 50, 50)
+        self.assertTrue(dino.check_collision([colliding]))
+
+    def test_check_collision_multiple(self) -> None:
+        dino: Dino = Dino()
+        dino.update()
+        non_colliding: GameElement = GameElement(500, 200)
+        non_colliding.rect = pg.Rect(500, 200, 50, 50)
+        colliding = GameElement(200, 200)
+        colliding.rect = pg.Rect(200, 200, 50, 50)
+        obstacles: list[GameElement] = [non_colliding, colliding]
+        self.assertTrue(dino.check_collision(obstacles))
+
+    def test_check_collision_empty_list(self) -> None:
+        dino: Dino = Dino()
+        dino.update()
+        self.assertFalse(dino.check_collision([]))
 
 
 class TestStatus(unittest.TestCase):

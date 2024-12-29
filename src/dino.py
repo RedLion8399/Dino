@@ -6,7 +6,7 @@ classes:
     Status: This class contains the status of the dino as an enum.
 """
 
-# pylint: disable=no-member
+# pylint: disable=no-member, disable=invalid-name
 
 from enum import Enum
 from typing import Final
@@ -76,11 +76,11 @@ class Dino(GameElement):
             >>> for event in pg.event.get():
             >>>     dino.process_input(event)
         """
-        JUMP_KEYS: Final[list[int]] = [  # pylint: disable=invalid-name
+        JUMP_KEYS: Final[list[int]] = [
             pg.K_UP,
             pg.K_SPACE,
         ]
-        SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]  # pylint: disable=invalid-name
+        SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]
 
         if event.type == pg.KEYDOWN:
             if event.key in JUMP_KEYS and self.status == Status.RUNNING:
@@ -120,11 +120,19 @@ class Dino(GameElement):
         else:
             self.current_image = self.sneaking_image[0][1]
 
-    def check_collision(self) -> bool:
-        """This function checks if the dino collides with an object."""
-        raise NotImplementedError(
-            "Subclasses must implement the check_collision method."
-        )
+    def check_collision(self, obstacles: list[GameElement]) -> bool:
+        """This function checks if the dino collides with an object.
+
+        Args:
+            obstacles: list of GameElement objects that could be colliding.
+
+        Returns:
+            bool: True if the dino collides with an object, False otherwise.
+        """
+        for obstacle in obstacles:
+            if pg.Rect.colliderect(self.rect, obstacle.rect):
+                return True
+        return False
 
     def load_images(self) -> None:
         """This function loads the images for the dino."""
@@ -134,10 +142,19 @@ class Dino(GameElement):
         )
 
     def update(self, speed: float = 0) -> None:
+        """Update the complete dino in the game.
+
+        This function updates the position of the dino in the game
+        and controlls it's animation status.
+
+        Args:
+            speed: The speed of the dino. The dino does not move so it is set to 0
+            without any need to change it.
+        """
         if self.status == Status.RUNNING:
             self._run()
         if self.status == Status.JUMPING:
             self._jump()
         if self.status == Status.SNEAKING:
             self._sneak()
-        super().update(speed)
+        super().update(0)
