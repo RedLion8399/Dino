@@ -26,6 +26,7 @@ def main() -> None:
     config.color_theme = ColorTheme.LIGHT_GRAY
     config.display_scale = (800, 300)
     config.caption = "Dino"
+    config.background_color = pg.Color(255, 255, 255)
     config.object_speed = 5
     config.init_screen()
 
@@ -60,6 +61,7 @@ def main() -> None:
         update()
         if dino.check_collision(obstacles):
             break
+        pg.display.flip()
     game_over()
 
 
