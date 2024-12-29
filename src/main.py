@@ -11,10 +11,10 @@ import sys
 
 import pygame as pg
 
-from obstacles import GameElement
 from config import ColorTheme, config
 from counter import Counter
 from dino import Dino
+from obstacles import GameElement
 
 
 def main() -> None:
