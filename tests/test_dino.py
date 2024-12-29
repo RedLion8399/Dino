@@ -14,6 +14,7 @@ class TestDino(unittest.TestCase):
     def setUp(self) -> None:
         config.display_scale = (800, 200)
         config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
         config.init_screen()
 
     def test_init(self) -> None:
