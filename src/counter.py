@@ -8,44 +8,42 @@ Classes:
 
 
 class Counter:
-    """The Counter class is responsible for counting the players score.
-    It's needed because the score should be increased only every 3 frames.
+    """Count the different game scores.
+
+    The Counter class is responsible for counting the global score.
+    From this scre many different subscores can be calculated.
+    It is implemented as a singleton meaning that every reference
+    to the Counter class returns the same instance. Consequently changing
+    the attributes of one instance will change the attributes of all others as well.
 
     Attributes:
-        score: The current score of the player.
-        frame_counter: Counts the frames passing. It is set to 0 every 3 frames.
+        frames: Counts the total frames passed in the game.
         highscore: The highscore from previous games. It's loaded from a file.
-
-    Methods:
-        count: Increases the score by one every 3 frames.
-        save_highscore: Saves the current highscore to a file.
-        __int__: Returns the current score of the player.
     """
 
-    def __init__(self) -> None:
-        self.score: int = 0
-        self.frame_counter: int = 0
-        self.highscore: int = self.__load_highscore()
-
-    def count(self) -> int:
-        """This method is responsible for counting the players score.
-        It increases the score by one every 3 frames.
+    def __new__(cls):
+        """Ensure that only one instance of the Counter class exists.
 
         Returns:
-            int: The current score of the player.
+            Counter: In any casee an inctance of the Counter class is returned.
+            If there is already an instance only the reference to this instance
+            is returned. Otherwise a new instance is created and returned.
         """
-        self.frame_counter += 1
-        if self.frame_counter == 3:
-            self.score += 1
-            self.frame_counter = 0
-        return self.score
+        if not hasattr(cls, "_instance"):
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
-    def __int__(self) -> int:
-        """This method returns the current score of the player."""
-        return self.score
+    def __init__(self) -> None:
+        """Initialize the Counter class and load the highscore from a file."""
+        self.frames: int = 0
+        self.highscore: int = self.__load_highscore()
 
     def save_highscore(self) -> None:
-        """This method saves the current highscore to a file."""
+        """This method saves the current highscore to a file.
+
+        The higscore is only saved if the current score is higher
+        than the previous highscore.
+        """
         if self.score > self.highscore:
             self.highscore = self.score
         with open("highscore.txt", "w", encoding="utf-8") as file:
@@ -55,9 +53,6 @@ class Counter:
         """This method loads the highscore from a file.
         If the file does not exist, it returns 0.
 
-        Raises:
-            FileNotFoundError: If the file does not exist.
-
         Returns:
             int: The highscore feom previous games.
         """
@@ -66,3 +61,27 @@ class Counter:
                 return int(file.read())
         except FileNotFoundError:
             return 0
+
+    def tick(self) -> None:
+        """Increase the frame counter by one every time this method is called."""
+        self.frames += 1
+
+    @property
+    def score(self) -> int:
+        """This method returns the current score of the player."""
+        return self.frames // 3
+
+    @property
+    def dino_running_status(self) -> bool:
+        """Returns the animation status of the dino.
+
+        While the Dino is running or sneaking it has to different immages
+        to change between in order to create a running animation.
+        The animation state changes every 20 frames.
+
+        Returns:
+            bool: The aimaton has only two states so it can be displayed
+            as a boolean. It is irrelevant wich state belongs to wich image
+            and can be difined by the user.
+        """
+        return self.frames % 20 < 10

@@ -1,4 +1,5 @@
 """The main module contains the main functionality of the programm.
+
 It is the file, meant to be called directly to playthe game.
 It initializes the grafics as well as controlls the main game functionalitys
 defined in other modules.
@@ -47,7 +48,7 @@ def main() -> None:
 
     while True:
         get_input()
-        counter.count()
+        counter.tick()
     game_over()
 
 
