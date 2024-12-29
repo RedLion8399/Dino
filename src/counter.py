@@ -23,26 +23,9 @@ class Counter:
     """
 
     def __init__(self) -> None:
-        self.score: int = 0
-        self.frame_counter: int = 0
+        """Initialize the Counter class and load the highscore from a file."""
+        self.frames: int = 0
         self.highscore: int = self.__load_highscore()
-
-    def count(self) -> int:
-        """This method is responsible for counting the players score.
-        It increases the score by one every 3 frames.
-
-        Returns:
-            int: The current score of the player.
-        """
-        self.frame_counter += 1
-        if self.frame_counter == 3:
-            self.score += 1
-            self.frame_counter = 0
-        return self.score
-
-    def __int__(self) -> int:
-        """This method returns the current score of the player."""
-        return self.score
 
     def save_highscore(self) -> None:
         """This method saves the current highscore to a file."""
@@ -66,3 +49,12 @@ class Counter:
                 return int(file.read())
         except FileNotFoundError:
             return 0
+
+    def tick(self) -> None:
+        """Increase the frame counter by one every time this method is called."""
+        self.frames += 1
+
+    @property
+    def score(self) -> int:
+        """This method returns the current score of the player."""
+        return self.frames // 3
