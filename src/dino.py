@@ -47,7 +47,7 @@ class Dino(GameElement):
     """
 
     def __init__(self) -> None:
-        super().__init__(20, 100)
+        super().__init__(200, 200)
         self.status: Status = Status.RUNNING
 
         self.running_image: tuple[list[pg.Surface], pg.Rect]
