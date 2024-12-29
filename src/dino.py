@@ -6,14 +6,14 @@ classes:
     Status: This class contains the status of the dino as an enum.
 """
 
-# pylint: disable=no-member
-# pylint: disable=unused-private-member
+# pylint: disable=no-member, disable=invalid-name
 
 from enum import Enum
 from typing import Final
 
 import pygame as pg
 
+from counter import Counter
 from obstacles import GameElement
 from recourses import load_image, seperate_images
 
@@ -47,7 +47,8 @@ class Dino(GameElement):
     """
 
     def __init__(self) -> None:
-        super().__init__(20, 100)
+        super().__init__(200, 200)
+        self.counter: Counter = Counter()
         self.status: Status = Status.RUNNING
 
         self.running_image: tuple[list[pg.Surface], pg.Rect]
@@ -75,11 +76,11 @@ class Dino(GameElement):
             >>> for event in pg.event.get():
             >>>     dino.process_input(event)
         """
-        JUMP_KEYS: Final[list[int]] = [  # pylint: disable=invalid-name
+        JUMP_KEYS: Final[list[int]] = [
             pg.K_UP,
             pg.K_SPACE,
         ]
-        SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]  # pylint: disable=invalid-name
+        SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]
 
         if event.type == pg.KEYDOWN:
             if event.key in JUMP_KEYS and self.status == Status.RUNNING:
@@ -90,20 +91,48 @@ class Dino(GameElement):
             if event.key in SNEAK_KEYS and self.status == Status.SNEAKING:
                 self.status = Status.RUNNING
 
-    def __run(self) -> None:
-        raise NotImplementedError("Subclasses must implement the run method.")
+    def _run(self) -> None:
+        """Set the Dino's image to the running image.
 
-    def __jump(self) -> None:
-        raise NotImplementedError("Subclasses must implement the jump method.")
+        The Dino has two images for running. To create a running animation
+        the Dino changes between the two images every 20 frames.
+        """
+        self.rect = self.running_image[1]
+        if self.counter.dino_running_status:
+            self.current_image = self.running_image[0][2]
+        else:
+            self.current_image = self.running_image[0][3]
 
-    def __sneak(self) -> None:
-        raise NotImplementedError("Subclasses must implement the sneak method.")
+    def _jump(self) -> None:
+        """Set the Dino's image to the jumping image."""
+        self.rect = self.running_image[1]
+        self.current_image = self.running_image[0][0]
 
-    def check_collision(self) -> bool:
-        """This function checks if the dino collides with an object."""
-        raise NotImplementedError(
-            "Subclasses must implement the check_collision method."
-        )
+    def _sneak(self) -> None:
+        """Set the Dino's image to the sneaking image.
+
+        The Dino has two images for sneaking. To create a sneaking animation
+        the Dino changes between the two images every 20 frames.
+        """
+        self.rect = self.sneaking_image[1]
+        if self.counter.dino_running_status:
+            self.current_image = self.sneaking_image[0][0]
+        else:
+            self.current_image = self.sneaking_image[0][1]
+
+    def check_collision(self, obstacles: list[GameElement]) -> bool:
+        """This function checks if the dino collides with an object.
+
+        Args:
+            obstacles: list of GameElement objects that could be colliding.
+
+        Returns:
+            bool: True if the dino collides with an object, False otherwise.
+        """
+        for obstacle in obstacles:
+            if pg.Rect.colliderect(self.rect, obstacle.rect):
+                return True
+        return False
 
     def load_images(self) -> None:
         """This function loads the images for the dino."""
@@ -113,10 +142,19 @@ class Dino(GameElement):
         )
 
     def update(self, speed: float = 0) -> None:
-        super().update(speed)
+        """Update the complete dino in the game.
+
+        This function updates the position of the dino in the game
+        and controlls it's animation status.
+
+        Args:
+            speed: The speed of the dino. The dino does not move so it is set to 0
+            without any need to change it.
+        """
         if self.status == Status.RUNNING:
-            self.__run()
+            self._run()
         if self.status == Status.JUMPING:
-            self.__jump()
+            self._jump()
         if self.status == Status.SNEAKING:
-            self.__sneak()
+            self._sneak()
+        super().update(0)

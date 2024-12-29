@@ -1,9 +1,6 @@
-"""This module contains the tests for the counter module"""
-
-# pylint: disable=protected-access
+# pylint: disable=protected-access, missing-docstring
 
 import unittest
-from math import floor
 from random import randint
 
 from counter import Counter
@@ -15,21 +12,24 @@ from counter import Counter
 
 
 class TestCounter(unittest.TestCase):
-    """This class contains the tests for the Counter class."""
-
     def test_init(self) -> None:
         """This function tests the initialization of the Counter class."""
         counter: Counter = Counter()
-        self.assertEqual(counter.score, 0)
-        self.assertEqual(counter.frame_counter, 0)
+        self.assertEqual(counter.frames, 0)
+
+    def test_singleton(self) -> None:
+        """This function tests the singleton property of the Counter class."""
+        counter1: Counter = Counter()
+        counter2: Counter = Counter()
+        self.assertEqual(counter1, counter2)
 
     def test_count_simple(self) -> None:
         """This function tests the count method of the Counter class."""
         counter: Counter = Counter()
         for _ in range(3):
-            counter.count()
+            counter.tick()
         self.assertEqual(counter.score, 1)
-        self.assertEqual(counter.frame_counter, 0)
+        self.assertEqual(counter.frames, 3)
 
     def test_count_multiple(self) -> None:
         """This function tests the count method of the Counter class."""
@@ -37,8 +37,8 @@ class TestCounter(unittest.TestCase):
             counter: Counter = Counter()
             random_number: int = randint(1, 100)
             for _ in range(random_number):
-                counter.count()
-            self.assertEqual(counter.score, floor(random_number / 3))
+                counter.tick()
+            self.assertEqual(counter.score, random_number // 3)
 
     def test_save_highscore(self) -> None:
         """This function tests the save_highscore method of the Counter class."""
@@ -78,7 +78,8 @@ class TestCounter(unittest.TestCase):
         with open("highscore.txt", "w", encoding="utf-8") as file:
             file.write("0")
         counter: Counter = Counter()
-        counter.score = 100
+        for _ in range(300):
+            counter.tick()
         counter.save_highscore()
         with open("highscore.txt", "r", encoding="utf-8") as file:
             self.assertEqual(int(file.read()), 100)
@@ -88,7 +89,15 @@ class TestCounter(unittest.TestCase):
         with open("highscore.txt", "w", encoding="utf-8") as file:
             file.write("55")
         counter: Counter = Counter()
-        counter.score = 33
+        for _ in range(99):
+            counter.tick()
         counter.save_highscore()
         with open("highscore.txt", "r", encoding="utf-8") as file:
             self.assertEqual(int(file.read()), 55)
+
+    def test_dino_running_status(self):
+        counter: Counter = Counter()
+        self.assertTrue(counter.dino_running_status)
+        for _ in range(12):
+            counter.tick()
+        self.assertFalse(counter.dino_running_status)
