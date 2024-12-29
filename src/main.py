@@ -23,6 +23,7 @@ def main() -> None:
     config.color_theme = ColorTheme.LIGHT_GRAY
     config.display_scale = (800, 300)
     config.caption = "Dino"
+    config.object_speed = 5
     config.init_screen()
 
     counter: Counter = Counter()
