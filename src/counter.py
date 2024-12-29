@@ -20,6 +20,7 @@ class Counter:
         frames: Counts the total frames passed in the game.
         highscore: The highscore from previous games. It's loaded from a file.
     """
+
     def __new__(cls):
         """Ensure that only one instance of the Counter class exists.
 
