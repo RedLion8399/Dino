@@ -5,8 +5,8 @@ import unittest
 
 import pygame as pg
 
-from dino import Dino, Status
 from config import config
+from dino import Dino, Status
 
 
 class TestDino(unittest.TestCase):

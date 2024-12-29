@@ -13,9 +13,9 @@ from typing import Final
 
 import pygame as pg
 
+from counter import Counter
 from obstacles import GameElement
 from recourses import load_image, seperate_images
-from counter import Counter
 
 
 class Status(Enum):
