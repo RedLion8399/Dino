@@ -17,6 +17,12 @@ class TestCounter(unittest.TestCase):
         counter: Counter = Counter()
         self.assertEqual(counter.frames, 0)
 
+    def test_singleton(self) -> None:
+        """This function tests the singleton property of the Counter class."""
+        counter1: Counter = Counter()
+        counter2: Counter = Counter()
+        self.assertEqual(counter1, counter2)
+
     def test_count_simple(self) -> None:
         """This function tests the count method of the Counter class."""
         counter: Counter = Counter()

@@ -12,11 +12,25 @@ class Counter:
 
     The Counter class is responsible for counting the global score.
     From this scre many different subscores can be calculated.
+    It is implemented as a singleton meaning that every reference
+    to the Counter class returns the same instance. Consequently changing
+    the attributes of one instance will change the attributes of all others as well.
 
     Attributes:
         frames: Counts the total frames passed in the game.
         highscore: The highscore from previous games. It's loaded from a file.
     """
+    def __new__(cls):
+        """Ensure that only one instance of the Counter class exists.
+
+        Returns:
+            Counter: In any casee an inctance of the Counter class is returned.
+            If there is already an instance only the reference to this instance
+            is returned. Otherwise a new instance is created and returned.
+        """
+        if not hasattr(cls, "_instance"):
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
     def __init__(self) -> None:
         """Initialize the Counter class and load the highscore from a file."""
