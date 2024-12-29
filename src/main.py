@@ -28,6 +28,7 @@ def main() -> None:
     config.caption = "Dino"
     config.background_color = pg.Color(255, 255, 255)
     config.object_speed = 5
+    config.frame_rate = 60
     config.init_screen()
 
     obstacles: list[GameElement] = []
@@ -59,10 +60,14 @@ def main() -> None:
         get_input()
         counter.tick()
         update()
+
         if dino.check_collision(obstacles):
             break
+
         pg.display.flip()
+        pg.time.Clock().tick(config.frame_rate)
         config.window.fill(config.background_color)
+
     game_over()
 
 

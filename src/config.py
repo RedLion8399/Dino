@@ -31,6 +31,7 @@ class Config:
         self.object_speed: int = 0
         self.window: pg.Surface
         self.background_color: pg.Color
+        self.frame_rate: int
 
     def init_screen(self) -> None:
         """Initialize the game screen globally."""
