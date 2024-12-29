@@ -62,6 +62,7 @@ def main() -> None:
         if dino.check_collision(obstacles):
             break
         pg.display.flip()
+        config.window.fill(config.background_color)
     game_over()
 
 
