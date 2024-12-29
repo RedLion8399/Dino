@@ -6,10 +6,12 @@ on:
       - "*"
     paths:
       - "**.py"
+  pull_request:
   workflow_dispatch:
 
 jobs:
   format_and_lint:
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.fork == true }}
     runs-on: ubuntu-latest
 
     steps:
