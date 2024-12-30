@@ -6,8 +6,8 @@ the basic elements of the game.
 import pygame as pg
 
 from config import config
-from recourses import load_image, seperate_images
 from counter import Counter
+from recourses import load_image, seperate_images
 
 
 class GameElement(pg.sprite.Sprite):
