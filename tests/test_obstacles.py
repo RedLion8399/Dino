@@ -37,22 +37,30 @@ class TestGameElement(unittest.TestCase):
 
 class TestCactus(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        cactus = Cactus(0, 0)
-        self.assertEqual(cactus.x_position, 0)
-        self.assertEqual(cactus.y_position, 0)
+        cactus = Cactus()
+        self.assertEqual(cactus.x_position, config.display_scale[0])
+        self.assertEqual(cactus.y_position, 200)
 
     def test_init_images(self):
-        cactus = Cactus(0, 0)
+        cactus = Cactus()
         self.assertIsInstance(cactus.image_1, tuple)
         self.assertIsInstance(cactus.image_2, tuple)
         self.assertIsInstance(cactus.image_1[0], list)
         self.assertIsInstance(cactus.image_2[0], list)
         self.assertIsInstance(cactus.image_1[1], pg.Rect)
         self.assertIsInstance(cactus.image_2[1], pg.Rect)
+
+    def test_random_image(self):
+        cactus = Cactus()
+        cactus.random_image()
+        self.assertIsInstance(cactus.current_image, pg.Surface)
+        self.assertIsInstance(cactus.rect, pg.Rect)
 
 
 class TestBird(unittest.TestCase):
