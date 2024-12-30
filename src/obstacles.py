@@ -106,7 +106,7 @@ class Cloud(GameElement):
     def __init__(self) -> None:
         super().__init__(config.display_scale[0], rd.randint(50, 100))
         self.current_image, self.rect = load_image("cloud.png")
-        self.OBJECT_SPEED = 3
+        self.OBJECT_SPEED = 1
 
 
 class Ground(GameElement):

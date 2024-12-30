@@ -35,6 +35,8 @@ def main() -> None:
     game_objects: pg.sprite.Group[GameElement] = pg.sprite.Group()
     obstacle_list: list[GameElement] = []
     obstacle_group: pg.sprite.Group[GameElement] = pg.sprite.Group()
+    cloud_list: list[GameElement] = []
+    cloud_group: pg.sprite.Group[GameElement] = pg.sprite.Group()
 
     counter: Counter = Counter()
     dino: Dino = Dino()
@@ -60,6 +62,7 @@ def main() -> None:
         """Update all grafic representations of the game elements."""
         dino.update()
         ground.update()
+        cloud_group.update()
         obstacle_group.update()
         game_objects.update()
 
@@ -70,6 +73,14 @@ def main() -> None:
         removes them if they are not from the list with possible collisions.
         """
         return [obstacle for obstacle in obstacles if obstacle.alive()]  # type: ignore
+
+    def update_clouds(clouds: list[GameElement]) -> list[GameElement]:
+        """Update all grafic representations of the cloud elements.
+
+        Checks if the clouds are still on the screen and
+        removes them if they are not from the list with possible collisions.
+        """
+        return [cloud for cloud in clouds if cloud.alive()]
 
     def spawn_objects() -> None:
         """Spawn a new objects on the screen.
@@ -103,8 +114,21 @@ def main() -> None:
         for obstacle in obstacle_list:
             obstacle_group.add(obstacle)
 
+        # Clouds
+        if len(cloud_list) < 3:
+            if not rd.randint(0, 1000):
+                cloud_list.append(Cloud())
+                print("cloud spawned", len(cloud_list))
+
+        for cloud in cloud_list:
+            cloud_group.add(cloud)
+
+        # Ground
+        game_objects.add(ground)
+
     while True:
         obstacle_list = update_obstacles(obstacle_list)
+        cloud_list = update_clouds(cloud_list)
         spawn_objects()
         get_input()
         counter.tick()
