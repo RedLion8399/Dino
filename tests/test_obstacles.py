@@ -23,14 +23,16 @@ class TestGameElement(unittest.TestCase):
 
     def test_move(self):
         game_element = GameElement(0, 0)
-        game_element.move(9)
+        game_element.OBJECT_SPEED = 9
+        game_element.move()
         self.assertEqual(game_element.x_position, -9)
 
     def test_update(self):
         game_element = GameElement(0, 0)
         game_element.current_image = pg.Surface((100, 100))
         game_element.rect = pg.Rect(0, 0, 100, 100)
-        game_element.update(5)
+        game_element.OBJECT_SPEED = 5
+        game_element.update()
         self.assertEqual(game_element.x_position, -5)
         self.assertEqual(game_element.y_position, 0)
 
@@ -40,7 +42,7 @@ class TestGameElement(unittest.TestCase):
         elements.add(game_element)
         game_element.current_image = pg.Surface((100, 100))
         game_element.rect = pg.Rect(0, 0, 100, 100)
-        game_element.update(5)
+        game_element.update()
         self.assertEqual(game_element.alive(), False)
 
     def test_update_alive(self):
@@ -49,7 +51,7 @@ class TestGameElement(unittest.TestCase):
         elements.add(game_element)
         game_element.current_image = pg.Surface((100, 100))
         game_element.rect = pg.Rect(0, 0, 100, 100)
-        game_element.update(5)
+        game_element.update()
         self.assertEqual(game_element.alive(), True)
 
 
