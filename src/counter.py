@@ -85,3 +85,16 @@ class Counter:
             and can be difined by the user.
         """
         return self.frames % 20 < 10
+
+    @property
+    def bird_animation_status(self) -> bool:
+        """Returns the animation status of the bird.
+
+        While the bird is flying it has to different immages
+        to change between in order to create a flying animation.
+        The animation state changes every 40 frames.
+
+        Returns:
+            bool: The aimaton has only two states so it can be displayed
+        """
+        return self.frames % 40 < 20
