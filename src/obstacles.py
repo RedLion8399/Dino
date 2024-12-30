@@ -43,12 +43,14 @@ class Cactus(GameElement):
     It has a rect attribute that represents its position and size.
     """
 
-    def __init__(self, x_position: float, y_position: float) -> None:
-        super().__init__(x_position, y_position)
+    def __init__(self) -> None:
+        super().__init__(config.display_scale[0], 200)
         self.image_1: tuple[list[pg.Surface], pg.Rect]
         self.image_2: tuple[list[pg.Surface], pg.Rect]
         self.image_1 = seperate_images(load_image("cactus-big.png")[0], (3, 1))
         self.image_2 = seperate_images(load_image("cactus-small.png")[0], (3, 1))
+
+        self.random_image()
 
     def random_image(self) -> None:
         """Randomly select an image for the Cactus element.
