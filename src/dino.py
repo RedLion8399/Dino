@@ -13,7 +13,6 @@ from typing import Final
 
 import pygame as pg
 
-from counter import Counter
 from obstacles import GameElement
 from recourses import load_image, seperate_images
 
@@ -47,16 +46,19 @@ class Dino(GameElement):
     """
 
     def __init__(self) -> None:
-        super().__init__(200, 200)
-        self.counter: Counter = Counter()
+        self.DEFAULT_POSITION: Final[tuple[int, int]] = (200, 200)
+        self.DEFAULT_VELOCITY: Final[float] = -15
+
+        self.GRAVITY: Final[float] = 0.8
+        self.jump_velocity: float = self.DEFAULT_VELOCITY
+
         self.status: Status = Status.RUNNING
+
+        super().__init__(self.DEFAULT_POSITION[0], self.DEFAULT_POSITION[1])
 
         self.running_image: tuple[list[pg.Surface], pg.Rect]
         self.sneaking_image: tuple[list[pg.Surface], pg.Rect]
         self.load_images()
-
-        self.gravity: float = 0.8
-        self.jump_velocity: float = -15
 
     def process_input(self, event: pg.event.Event) -> None:
         """This function gets the input from the user.
@@ -79,10 +81,7 @@ class Dino(GameElement):
             >>> for event in pg.event.get():
             >>>     dino.process_input(event)
         """
-        JUMP_KEYS: Final[list[int]] = [
-            pg.K_UP,
-            pg.K_SPACE,
-        ]
+        JUMP_KEYS: Final[list[int]] = [pg.K_UP, pg.K_SPACE]
         SNEAK_KEYS: Final[list[int]] = [pg.K_DOWN]
 
         if event.type == pg.KEYDOWN:
@@ -112,12 +111,11 @@ class Dino(GameElement):
         self.current_image = self.running_image[0][0]
 
         self.y_position += self.jump_velocity
-        self.jump_velocity += self.gravity
-        print(f"jump velocity: {self.jump_velocity}, hight: {self.y_position}")
+        self.jump_velocity += self.GRAVITY
 
-        if self.y_position >= 200:
-            self.jump_velocity = -15
-            self.y_position = 200
+        if self.y_position >= self.DEFAULT_POSITION[1]:
+            self.jump_velocity = self.DEFAULT_VELOCITY
+            self.y_position = self.DEFAULT_POSITION[1]
             self.status = Status.RUNNING
 
     def _sneak(self) -> None:
