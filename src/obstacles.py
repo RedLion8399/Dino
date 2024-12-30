@@ -2,6 +2,7 @@
 It provides the functionality to create and manage
 the basic elements of the game.
 """
+# pylint: disable=invalid-name
 
 import random as rd
 
@@ -25,23 +26,20 @@ class GameElement(pg.sprite.Sprite):
         self.rect: pg.Rect
         self.current_image: pg.Surface
         self.counter: Counter = Counter()
+        self.OBJECT_SPEED: float = config.object_speed
 
-    def update(self, speed: float = config.object_speed) -> None:
+    def update(self) -> None:
         """Update the position of the element in the game."""
-        self.move(speed)
+        self.move()
         self.rect.update((self.x_position, self.y_position), self.rect.size)
         config.window.blit(self.current_image, self.rect)
 
         if self.x_position <= 0:
             self.kill()
 
-    def move(self, speed: float) -> None:
-        """Move the element in the game.
-
-        Args:
-            speed: The speed of the element moves every frame
-        """
-        self.x_position -= speed
+    def move(self) -> None:
+        """Move the element in the game."""
+        self.x_position -= self.OBJECT_SPEED
 
 
 class Cactus(GameElement):
@@ -95,6 +93,7 @@ class Cloud(GameElement):
     def __init__(self) -> None:
         super().__init__(config.display_scale[0], rd.randint(50, 100))
         self.current_image, self.rect = load_image("cloud.png")
+        self.OBJECT_SPEED = 3
 
 
 class Ground(GameElement):

@@ -49,6 +49,7 @@ class Dino(GameElement):
         self.DEFAULT_POSITION: Final[tuple[int, int]] = (200, 200)
         self.DEFAULT_VELOCITY: Final[float] = -15
 
+        self.OBJECT_SPEED = 0
         self.GRAVITY: Final[float] = 0.8
         self.jump_velocity: float = self.DEFAULT_VELOCITY
 
@@ -151,7 +152,7 @@ class Dino(GameElement):
             load_image("dino_sneaking.png")[0], (2, 1)
         )
 
-    def update(self, speed: float = 0) -> None:
+    def update(self) -> None:
         """Update the complete dino in the game.
 
         This function updates the position of the dino in the game
@@ -167,4 +168,4 @@ class Dino(GameElement):
             self._jump()
         if self.status == Status.SNEAKING:
             self._sneak()
-        super().update(0)
+        super().update()
