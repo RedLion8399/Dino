@@ -157,10 +157,6 @@ class Dino(GameElement):
 
         This function updates the position of the dino in the game
         and controlls it's animation status.
-
-        Args:
-            speed: The speed of the dino. The dino does not move so it is set to 0
-            without any need to change it.
         """
         if self.status == Status.RUNNING:
             self._run()

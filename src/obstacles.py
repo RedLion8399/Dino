@@ -84,6 +84,18 @@ class Bird(GameElement):
         self.image = seperate_images(load_image("birds.png")[0], (2, 1))
         self.rect = self.image[1]
 
+    def update(self) -> None:
+        """Updates the whole Bird element in the game.
+
+        Bird has two different immages to change between in order to create
+        a flying animation. The animation state changes every 40 frames.
+        """
+        if self.counter.bird_animation_status:
+            self.current_image = self.image[0][0]
+        else:
+            self.current_image = self.image[0][1]
+        super().update()
+
 
 class Cloud(GameElement):
     """This class represents a Cloud element in the game.
