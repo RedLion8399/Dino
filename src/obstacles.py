@@ -85,8 +85,8 @@ class Cloud(GameElement):
     It has a rect attribute that represents its position and size.
     """
 
-    def __init__(self, x_position: float, y_position: float) -> None:
-        super().__init__(x_position, y_position)
+    def __init__(self) -> None:
+        super().__init__(config.display_scale[0], rd.randint(50, 100))
         self.current_image, self.rect = load_image("cloud.png")
 
 

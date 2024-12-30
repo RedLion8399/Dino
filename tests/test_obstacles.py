@@ -82,16 +82,18 @@ class TestBird(unittest.TestCase):
 
 class TestCloud(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        cloud = Cloud(0, 0)
-        self.assertEqual(cloud.x_position, 0)
-        self.assertEqual(cloud.y_position, 0)
+        cloud = Cloud()
+        self.assertEqual(cloud.x_position, config.display_scale[0])
+        self.assertIn(cloud.y_position, range(50, 101))
 
     def test_init_images(self):
-        cloud = Cloud(0, 0)
+        cloud = Cloud()
         self.assertTrue(cloud.current_image)
         self.assertTrue(cloud.rect)
 
