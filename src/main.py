@@ -101,24 +101,27 @@ def main() -> None:
 
         # Obstacles
         if len(obstacle_list) < 3:
-            # Chose between cactus and bird
-            # Cacti are double the chance than birds
-            match rd.randint(0, 400):
-                case 0 | 1 | 2 | 3:
-                    obstacle_list.append(Cactus())
-                case 4:
-                    obstacle_list.append(Bird())
-                case _:
-                    pass
+            # Only spawn obstacles every 20 frames
+            if counter.cactus_counter > 20:
+                # Chose between cactus and bird
+                # Cacti are double the chance than birds
+                match rd.randint(0, 400):
+                    case 0 | 1 | 2 | 3:
+                        obstacle_list.append(Cactus())
+                    case 4:
+                        obstacle_list.append(Bird())
+                    case _:
+                        pass
 
         for obstacle in obstacle_list:
             obstacle_group.add(obstacle)
 
         # Clouds
         if len(cloud_list) < 3:
-            if not rd.randint(0, 1000):
-                cloud_list.append(Cloud())
-                print("cloud spawned", len(cloud_list))
+            # Only spawn clouds every 100 frames
+            if counter.cloud_counter > 100:
+                if not rd.randint(0, 1000):
+                    cloud_list.append(Cloud())
 
         for cloud in cloud_list:
             cloud_group.add(cloud)
