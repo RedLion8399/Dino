@@ -79,14 +79,31 @@ class TestDino(unittest.TestCase):
             dino._run()
         self.assertEqual(dino.current_image, dino.running_image[0][3])
 
-    def test__jump(self) -> None:
+    def test__jump_animation(self) -> None:
         dino: Dino = Dino()
         dino.status = Status.JUMPING
         dino._jump()
         self.assertEqual(dino.rect, dino.running_image[1])
         self.assertEqual(dino.current_image, dino.running_image[0][0])
 
-    def test__sneak(self) -> None:
+    def test__jump_movement(self) -> None:
+        """This function tests the movement of the Dino when it is jumping.
+
+        While jumping the position values are mostly unknown
+        wich makes testing difficult. This function tests only if the Dino
+        returns to the ground after the jump under known conditions.
+        """
+        dino: Dino = Dino()
+        dino.status = Status.JUMPING
+        dino.DEFAULT_VELOCITY = -15
+        self.assertEqual(dino.y_position, dino.DEFAULT_POSITION[1])
+        for _ in range(40):
+            dino.counter.tick()
+            dino.update()
+        self.assertEqual(dino.y_position, dino.DEFAULT_POSITION[1])
+        self.assertEqual(dino.status, Status.RUNNING)
+
+    def test__sneak_animation(self) -> None:
         dino: Dino = Dino()
         dino.status = Status.SNEAKING
         dino._sneak()
@@ -97,7 +114,7 @@ class TestDino(unittest.TestCase):
             dino._sneak()
         self.assertEqual(dino.current_image, dino.sneaking_image[0][1])
 
-    def test_update(self) -> None:
+    def test_update_animations(self) -> None:
         dino: Dino = Dino()
         dino.status = Status.JUMPING
         dino.update()
