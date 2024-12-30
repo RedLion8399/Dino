@@ -3,7 +3,7 @@ name: Automated Tests
 on:
   push:
     branches:
-      - "*"
+      - "**"
     paths:
       - "**.py"
   pull_request:
