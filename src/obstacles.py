@@ -6,6 +6,7 @@ the basic elements of the game.
 import pygame as pg
 
 from config import config
+from counter import Counter
 from recourses import load_image, seperate_images
 
 
@@ -21,6 +22,7 @@ class GameElement(pg.sprite.Sprite):
         self.y_position: float = y_position
         self.rect: pg.Rect
         self.current_image: pg.Surface
+        self.counter: Counter = Counter()
 
     def update(self, speed: float = config.object_speed) -> None:
         """Update the position of the element in the game."""

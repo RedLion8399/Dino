@@ -14,6 +14,7 @@ import pygame as pg
 from config import ColorTheme, config
 from counter import Counter
 from dino import Dino
+from obstacles import GameElement
 
 
 def main() -> None:
@@ -21,11 +22,16 @@ def main() -> None:
     It is the place were every functionality is stticked together.
     It initializes the game, runs it displays changes and checks for kollisiions.
     """
+
     config.color_theme = ColorTheme.LIGHT_GRAY
     config.display_scale = (800, 300)
     config.caption = "Dino"
+    config.background_color = pg.Color(255, 255, 255)
     config.object_speed = 5
+    config.frame_rate = 60
     config.init_screen()
+
+    obstacles: list[GameElement] = []
 
     counter: Counter = Counter()
     dino: Dino = Dino()
@@ -46,9 +52,22 @@ def main() -> None:
         pg.quit()
         sys.exit()
 
+    def update() -> None:
+        """Update all grafic representations of the game elements."""
+        dino.update()
+
     while True:
         get_input()
         counter.tick()
+        update()
+
+        if dino.check_collision(obstacles):
+            break
+
+        pg.display.flip()
+        pg.time.Clock().tick(config.frame_rate)
+        config.window.fill(config.background_color)
+
     game_over()
 
 
