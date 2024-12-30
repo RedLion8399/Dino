@@ -100,16 +100,18 @@ class TestCloud(unittest.TestCase):
 
 class TestGround(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        ground = Ground(0, 0)
-        self.assertEqual(ground.x_position, 0)
-        self.assertEqual(ground.y_position, 0)
+        ground = Ground()
+        self.assertEqual(ground.x_position, config.display_scale[0])
+        self.assertEqual(ground.y_position, config.display_scale[1])
 
     def test_init_images(self):
-        ground = Ground(0, 0)
+        ground = Ground()
         self.assertTrue(ground.immage_1)
         self.assertTrue(ground.immage_2)
         self.assertTrue(ground.rect_1)
