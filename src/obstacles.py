@@ -3,6 +3,7 @@ It provides the functionality to create and manage
 the basic elements of the game.
 """
 
+import random as rd
 import pygame as pg
 
 from config import config
@@ -47,6 +48,17 @@ class Cactus(GameElement):
         self.image_2: tuple[list[pg.Surface], pg.Rect]
         self.image_1 = seperate_images(load_image("cactus-big.png")[0], (3, 1))
         self.image_2 = seperate_images(load_image("cactus-small.png")[0], (3, 1))
+
+    def random_image(self) -> None:
+        """Randomly select an image for the Cactus element.
+
+        Cactus has two different sprite sheets with 3 different sprites each.
+        On every spawn of a new Cactus element, a random image is selected
+        and the rect attribute is updated accordingly.
+        """
+        temp_image: tuple[list[pg.Surface], pg.Rect] = rd.choice([self.image_1, self.image_2])
+        self.rect = temp_image[1]
+        self.current_image = rd.choice(temp_image[0])
 
 
 class Bird(GameElement):
