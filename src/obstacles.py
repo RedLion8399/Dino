@@ -4,6 +4,7 @@ the basic elements of the game.
 """
 
 import random as rd
+
 import pygame as pg
 
 from config import config
@@ -56,7 +57,9 @@ class Cactus(GameElement):
         On every spawn of a new Cactus element, a random image is selected
         and the rect attribute is updated accordingly.
         """
-        temp_image: tuple[list[pg.Surface], pg.Rect] = rd.choice([self.image_1, self.image_2])
+        temp_image: tuple[list[pg.Surface], pg.Rect] = rd.choice(
+            [self.image_1, self.image_2]
+        )
         self.rect = temp_image[1]
         self.current_image = rd.choice(temp_image[0])
 
