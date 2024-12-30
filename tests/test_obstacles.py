@@ -99,6 +99,14 @@ class TestBird(unittest.TestCase):
         bird = Bird()
         self.assertIsInstance(bird.image, tuple)
 
+    def test_bird_update_animation(self):
+        bird = Bird()
+        bird.update()
+        self.assertIs(bird.current_image, bird.image[0][0])
+        bird.counter.frames = 22
+        bird.update()
+        self.assertIs(bird.current_image, bird.image[0][1])
+
 
 class TestCloud(unittest.TestCase):
     def setUp(self) -> None:
