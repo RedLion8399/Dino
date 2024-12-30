@@ -34,6 +34,24 @@ class TestGameElement(unittest.TestCase):
         self.assertEqual(game_element.x_position, -5)
         self.assertEqual(game_element.y_position, 0)
 
+    def test_update_kill(self):
+        game_element = GameElement(0, 0)
+        elements: pg.sprite.Group[GameElement] = pg.sprite.Group()  # type: ignore
+        elements.add(game_element)
+        game_element.current_image = pg.Surface((100, 100))
+        game_element.rect = pg.Rect(0, 0, 100, 100)
+        game_element.update(5)
+        self.assertEqual(game_element.alive(), False)
+
+    def test_update_alive(self):
+        game_element = GameElement(100, 0)
+        elements: pg.sprite.Group[GameElement] = pg.sprite.Group()  # type: ignore
+        elements.add(game_element)
+        game_element.current_image = pg.Surface((100, 100))
+        game_element.rect = pg.Rect(0, 0, 100, 100)
+        game_element.update(5)
+        self.assertEqual(game_element.alive(), True)
+
 
 class TestCactus(unittest.TestCase):
     def setUp(self) -> None:

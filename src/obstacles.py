@@ -32,8 +32,15 @@ class GameElement(pg.sprite.Sprite):
         self.rect.update((self.x_position, self.y_position), self.rect.size)
         config.window.blit(self.current_image, self.rect)
 
+        if self.x_position <= 0:
+            self.kill()
+
     def move(self, speed: float) -> None:
-        """Move the element in the game."""
+        """Move the element in the game.
+
+        Args:
+            speed: The speed of the element moves every frame
+        """
         self.x_position -= speed
 
 
