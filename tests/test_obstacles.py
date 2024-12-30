@@ -65,16 +65,18 @@ class TestCactus(unittest.TestCase):
 
 class TestBird(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        bird = Bird(0, 0)
-        self.assertEqual(bird.x_position, 0)
-        self.assertEqual(bird.y_position, 0)
+        bird = Bird()
+        self.assertEqual(bird.x_position, config.display_scale[0])
+        self.assertIn(bird.y_position, [75, 200])
 
     def test_init_images(self):
-        bird = Bird(0, 0)
+        bird = Bird()
         self.assertIsInstance(bird.image, tuple)
 
 
