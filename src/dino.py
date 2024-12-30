@@ -49,7 +49,6 @@ class Dino(GameElement):
         self.DEFAULT_POSITION: Final[tuple[int, int]] = (200, 200)
         self.DEFAULT_VELOCITY: Final[float] = -15
 
-        self.OBJECT_SPEED = 0
         self.GRAVITY: Final[float] = 0.8
         self.jump_velocity: float = self.DEFAULT_VELOCITY
 
@@ -57,6 +56,7 @@ class Dino(GameElement):
 
         super().__init__(self.DEFAULT_POSITION[0], self.DEFAULT_POSITION[1])
 
+        self.OBJECT_SPEED = 0
         self.running_image: tuple[list[pg.Surface], pg.Rect]
         self.sneaking_image: tuple[list[pg.Surface], pg.Rect]
         self.load_images()
