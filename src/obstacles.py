@@ -112,3 +112,29 @@ class Ground(GameElement):
 
         self.immage_1, self.rect_1 = load_image("ground.png")
         self.immage_2, self.rect_2 = load_image("ground.png")
+
+        self.rect_1.bottomleft = (0, config.display_scale[1])
+        self.rect_2.bottomleft = (self.rect_1.right, config.display_scale[1])
+
+    def update(self) -> None:
+        """Move the ground in the game.
+
+        The ground moves as every other element in the game.
+        Different from the other elements, the ground exists
+        at every time of the game.
+        That means two different ground images are needed wich are
+        swiched every time one reaches the end.
+        If the right end of on of them cross the window border,
+        the other image is atteched at it's right side.
+        """
+        if self.rect_1.right <= 0:
+            self.rect_1.left = self.rect_2.right
+
+        if self.rect_2.right <= 0:
+            self.rect_2.left = self.rect_1.right
+
+        self.rect_1.move_ip(-self.OBJECT_SPEED, 0)
+        self.rect_2.move_ip(-self.OBJECT_SPEED, 0)
+
+        config.window.blit(self.immage_1, self.rect_1)
+        config.window.blit(self.immage_2, self.rect_2)
