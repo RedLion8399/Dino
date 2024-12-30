@@ -7,15 +7,15 @@ defined in other modules.
 
 # pylint: disable=no-member
 
-import sys
 import random as rd
+import sys
 
 import pygame as pg
 
 from config import ColorTheme, config
 from counter import Counter
 from dino import Dino
-from obstacles import GameElement, Bird, Cactus, Cloud, Ground
+from obstacles import Bird, Cactus, Cloud, GameElement, Ground
 
 
 def main() -> None:
