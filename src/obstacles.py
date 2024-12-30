@@ -35,7 +35,7 @@ class GameElement(pg.sprite.Sprite):
         self.rect.update((self.x_position, self.y_position), self.rect.size)
         config.window.blit(self.current_image, self.rect)
 
-        if self.x_position <= 0:
+        if self.rect.right <= 0:
             self.kill()
 
     def move(self) -> None:
