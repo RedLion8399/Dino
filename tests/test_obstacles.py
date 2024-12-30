@@ -37,16 +37,18 @@ class TestGameElement(unittest.TestCase):
 
 class TestCactus(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        cactus = Cactus(0, 0)
-        self.assertEqual(cactus.x_position, 0)
-        self.assertEqual(cactus.y_position, 0)
+        cactus = Cactus()
+        self.assertEqual(cactus.x_position, config.display_scale[0])
+        self.assertEqual(cactus.y_position, 200)
 
     def test_init_images(self):
-        cactus = Cactus(0, 0)
+        cactus = Cactus()
         self.assertIsInstance(cactus.image_1, tuple)
         self.assertIsInstance(cactus.image_2, tuple)
         self.assertIsInstance(cactus.image_1[0], list)
@@ -54,50 +56,62 @@ class TestCactus(unittest.TestCase):
         self.assertIsInstance(cactus.image_1[1], pg.Rect)
         self.assertIsInstance(cactus.image_2[1], pg.Rect)
 
+    def test_random_image(self):
+        cactus = Cactus()
+        cactus.random_image()
+        self.assertIsInstance(cactus.current_image, pg.Surface)
+        self.assertIsInstance(cactus.rect, pg.Rect)
+
 
 class TestBird(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        bird = Bird(0, 0)
-        self.assertEqual(bird.x_position, 0)
-        self.assertEqual(bird.y_position, 0)
+        bird = Bird()
+        self.assertEqual(bird.x_position, config.display_scale[0])
+        self.assertIn(bird.y_position, [75, 200])
 
     def test_init_images(self):
-        bird = Bird(0, 0)
+        bird = Bird()
         self.assertIsInstance(bird.image, tuple)
 
 
 class TestCloud(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        cloud = Cloud(0, 0)
-        self.assertEqual(cloud.x_position, 0)
-        self.assertEqual(cloud.y_position, 0)
+        cloud = Cloud()
+        self.assertEqual(cloud.x_position, config.display_scale[0])
+        self.assertIn(cloud.y_position, range(50, 101))
 
     def test_init_images(self):
-        cloud = Cloud(0, 0)
+        cloud = Cloud()
         self.assertTrue(cloud.current_image)
         self.assertTrue(cloud.rect)
 
 
 class TestGround(unittest.TestCase):
     def setUp(self) -> None:
-        pg.init()
-        pg.display.set_mode((800, 600))
+        config.display_scale = (800, 300)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_screen()
 
     def test_init_position(self):
-        ground = Ground(0, 0)
-        self.assertEqual(ground.x_position, 0)
-        self.assertEqual(ground.y_position, 0)
+        ground = Ground()
+        self.assertEqual(ground.x_position, config.display_scale[0])
+        self.assertEqual(ground.y_position, config.display_scale[1])
 
     def test_init_images(self):
-        ground = Ground(0, 0)
+        ground = Ground()
         self.assertTrue(ground.immage_1)
         self.assertTrue(ground.immage_2)
         self.assertTrue(ground.rect_1)
