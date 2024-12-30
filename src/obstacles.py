@@ -2,6 +2,7 @@
 It provides the functionality to create and manage
 the basic elements of the game.
 """
+
 # pylint: disable=invalid-name
 
 import random as rd
