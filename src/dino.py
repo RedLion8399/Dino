@@ -47,9 +47,9 @@ class Dino(GameElement):
 
     def __init__(self) -> None:
         self.DEFAULT_POSITION: Final[tuple[int, int]] = (200, 200)
-        self.DEFAULT_VELOCITY: Final[float] = -15
+        self.DEFAULT_VELOCITY: Final[float] = -18
 
-        self.GRAVITY: Final[float] = 0.8
+        self.GRAVITY: Final[float] = 1.2
         self.jump_velocity: float = self.DEFAULT_VELOCITY
 
         self.status: Status = Status.RUNNING
