@@ -31,12 +31,14 @@ def full_path(file_name: str, image: bool = False) -> str:
     )
 
 
-def load_image(file_name: str) -> tuple[pg.Surface, pg.Rect]:
+def load_image(
+    file_name: str, size: tuple[float, float] = (0.6, 0.6)
+) -> tuple[pg.Surface, pg.Rect]:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
         file_name (str): The name of the file to load.
-        color_theme (str): The color theme of the image.
+        size (tuple[float, float]): Factor to scale the image by.
 
     Returns:
         tuple[pg.Surface, pg.Rect]: The loaded image as a pygame.Surface object
@@ -50,7 +52,10 @@ def load_image(file_name: str) -> tuple[pg.Surface, pg.Rect]:
 
     # Makes the background of the image transparent
     image.set_colorkey(image.get_at((0, 0)))
-    return (image, image.get_rect())
+
+    rect: pg.Rect = image.get_rect()
+    rect.scale_by_ip(size[0], size[1])
+    return (image, rect)
 
 
 def load_sound(file_name: str) -> pg.mixer.Sound:
@@ -71,24 +76,31 @@ def load_sound(file_name: str) -> pg.mixer.Sound:
 
 
 def seperate_images(
-    image: pg.Surface, size: tuple[int, int]
+    image: pg.Surface,
+    image_count: tuple[int, int],
+    size: tuple[float, float] = (0.6, 0.6),
 ) -> tuple[list[pg.Surface], pg.Rect]:
     """Seperate an image into smaller images of a given size.
     All of them must have the same size and must be ordered in a grid.
 
     Args:
         image (pg.Surface): The image to seperate.
-        size (tuple[int, int]): The amount of the image to seperate. (width, height)
+        image_count (tuple[int, int]): The amount of the image
+        to seperate. Format: `(width, height)`
+        size (tuple[float, float]): Factor to scale the image by.
 
     Returns:
         touple[List[pg.Surface], Rect]: List of the seperated images
         and their regt representation.
     """
-    width: float = image.get_width() / size[0]
-    height: float = image.get_height() / size[1]
+    width: float = image.get_width() / image_count[0]
+    height: float = image.get_height() / image_count[1]
     immages: list[pg.Surface] = []
 
-    for i in range(size[1]):
-        for j in range(size[0]):
+    for i in range(image_count[1]):
+        for j in range(image_count[0]):
             immages.append(image.subsurface((j * width, i * height, width, height)))
-    return (immages, immages[0].get_rect())
+
+    rect = immages[0].get_rect()
+    rect.scale_by_ip(size[0], size[1])
+    return (immages, rect)
