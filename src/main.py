@@ -28,7 +28,7 @@ def main() -> None:
     config.display_scale = (800, 300)
     config.caption = "Dino"
     config.background_color = pg.Color(255, 255, 255)
-    config.object_speed = 5
+    config.object_speed = 7
     config.frame_rate = 60
     config.init_screen()
 
