@@ -31,7 +31,9 @@ def full_path(file_name: str, image: bool = False) -> str:
     )
 
 
-def load_image(file_name: str, size: tuple[float, float] = (0.6, 0.6)) -> tuple[pg.Surface, pg.Rect]:
+def load_image(
+    file_name: str, size: tuple[float, float] = (0.6, 0.6)
+) -> tuple[pg.Surface, pg.Rect]:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
@@ -74,8 +76,9 @@ def load_sound(file_name: str) -> pg.mixer.Sound:
 
 
 def seperate_images(
-    image: pg.Surface, image_count: tuple[int, int],
-    size: tuple[float, float] = (0.6, 0.6)
+    image: pg.Surface,
+    image_count: tuple[int, int],
+    size: tuple[float, float] = (0.6, 0.6),
 ) -> tuple[list[pg.Surface], pg.Rect]:
     """Seperate an image into smaller images of a given size.
     All of them must have the same size and must be ordered in a grid.
