@@ -122,8 +122,8 @@ class Ground(GameElement):
         self.rect_1: pg.Rect
         self.rect_2: pg.Rect
 
-        self.immage_1, self.rect_1 = load_image("ground.png")
-        self.immage_2, self.rect_2 = load_image("ground.png")
+        self.immage_1, self.rect_1 = load_image("ground.png", (1, 1))
+        self.immage_2, self.rect_2 = load_image("ground.png", (1, 1))
 
         self.rect_1.bottomleft = (0, config.display_scale[1])
         self.rect_2.bottomleft = (self.rect_1.right, config.display_scale[1])
