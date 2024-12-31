@@ -6,6 +6,7 @@ their files and preparing them for use in the game.
 import os
 
 import pygame as pg
+import random as rd
 
 from config import config
 
@@ -50,7 +51,10 @@ def load_image(file_name: str) -> tuple[pg.Surface, pg.Rect]:
 
     # Makes the background of the image transparent
     image.set_colorkey(image.get_at((0, 0)))
-    return (image, image.get_rect())
+
+    rect: pg.Rect = image.get_rect()
+    rect.scale_by_ip(0.6, 0.6)
+    return (image, rect)
 
 
 def load_sound(file_name: str) -> pg.mixer.Sound:
@@ -91,4 +95,7 @@ def seperate_images(
     for i in range(size[1]):
         for j in range(size[0]):
             immages.append(image.subsurface((j * width, i * height, width, height)))
-    return (immages, immages[0].get_rect())
+
+    rect = immages[0].get_rect()
+    rect.scale_by_ip(0.6, 0.6)
+    return (immages, rect)
