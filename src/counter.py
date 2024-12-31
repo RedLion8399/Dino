@@ -38,6 +38,9 @@ class Counter:
         self.frames: int = 0
         self.highscore: int = self.__load_highscore()
 
+        self._cactus_counter: int = 0
+        self._cloud_counter: int = 0
+
     def save_highscore(self) -> None:
         """This method saves the current highscore to a file.
 
@@ -66,6 +69,24 @@ class Counter:
         """Increase the frame counter by one every time this method is called."""
         self.frames += 1
 
+    def reset_cactus_counter(self) -> None:
+        """Set the current frame number when a new cactus is generated."""
+        self._cactus_counter = self.frames
+
+    def reset_cloud_counter(self) -> None:
+        """Set the current frame number when a new cloud is generated."""
+        self._cloud_counter = self.frames
+
+    @property
+    def cloud_counter(self) -> int:
+        """Return the current frame number when a new cloud is generated."""
+        return self.frames - self._cloud_counter
+
+    @property
+    def cactus_counter(self) -> int:
+        """Return the current frame number when a new cactus is generated."""
+        return self.frames - self._cactus_counter
+
     @property
     def score(self) -> int:
         """This method returns the current score of the player."""
@@ -85,3 +106,16 @@ class Counter:
             and can be difined by the user.
         """
         return self.frames % 20 < 10
+
+    @property
+    def bird_animation_status(self) -> bool:
+        """Returns the animation status of the bird.
+
+        While the bird is flying it has to different immages
+        to change between in order to create a flying animation.
+        The animation state changes every 40 frames.
+
+        Returns:
+            bool: The aimaton has only two states so it can be displayed
+        """
+        return self.frames % 40 < 20

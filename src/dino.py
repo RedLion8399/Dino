@@ -56,6 +56,7 @@ class Dino(GameElement):
 
         super().__init__(self.DEFAULT_POSITION[0], self.DEFAULT_POSITION[1])
 
+        self.OBJECT_SPEED = 0
         self.running_image: tuple[list[pg.Surface], pg.Rect]
         self.sneaking_image: tuple[list[pg.Surface], pg.Rect]
         self.load_images()
@@ -151,15 +152,11 @@ class Dino(GameElement):
             load_image("dino_sneaking.png")[0], (2, 1)
         )
 
-    def update(self, speed: float = 0) -> None:
+    def update(self) -> None:
         """Update the complete dino in the game.
 
         This function updates the position of the dino in the game
         and controlls it's animation status.
-
-        Args:
-            speed: The speed of the dino. The dino does not move so it is set to 0
-            without any need to change it.
         """
         if self.status == Status.RUNNING:
             self._run()
@@ -167,4 +164,4 @@ class Dino(GameElement):
             self._jump()
         if self.status == Status.SNEAKING:
             self._sneak()
-        super().update(0)
+        super().update()

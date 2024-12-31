@@ -3,6 +3,8 @@ It provides the functionality to create and manage
 the basic elements of the game.
 """
 
+# pylint: disable=invalid-name
+
 import random as rd
 
 import pygame as pg
@@ -25,16 +27,20 @@ class GameElement(pg.sprite.Sprite):
         self.rect: pg.Rect
         self.current_image: pg.Surface
         self.counter: Counter = Counter()
+        self.OBJECT_SPEED: float = config.object_speed
 
-    def update(self, speed: float = config.object_speed) -> None:
+    def update(self) -> None:
         """Update the position of the element in the game."""
-        self.move(speed)
+        self.move()
         self.rect.update((self.x_position, self.y_position), self.rect.size)
         config.window.blit(self.current_image, self.rect)
 
-    def move(self, speed: float) -> None:
+        if self.rect.right <= 0:
+            self.kill()
+
+    def move(self) -> None:
         """Move the element in the game."""
-        self.x_position -= speed
+        self.x_position -= self.OBJECT_SPEED
 
 
 class Cactus(GameElement):
@@ -78,6 +84,18 @@ class Bird(GameElement):
         self.image = seperate_images(load_image("birds.png")[0], (2, 1))
         self.rect = self.image[1]
 
+    def update(self) -> None:
+        """Updates the whole Bird element in the game.
+
+        Bird has two different immages to change between in order to create
+        a flying animation. The animation state changes every 40 frames.
+        """
+        if self.counter.bird_animation_status:
+            self.current_image = self.image[0][0]
+        else:
+            self.current_image = self.image[0][1]
+        super().update()
+
 
 class Cloud(GameElement):
     """This class represents a Cloud element in the game.
@@ -88,6 +106,7 @@ class Cloud(GameElement):
     def __init__(self) -> None:
         super().__init__(config.display_scale[0], rd.randint(50, 100))
         self.current_image, self.rect = load_image("cloud.png")
+        self.OBJECT_SPEED = 1
 
 
 class Ground(GameElement):
@@ -105,3 +124,29 @@ class Ground(GameElement):
 
         self.immage_1, self.rect_1 = load_image("ground.png")
         self.immage_2, self.rect_2 = load_image("ground.png")
+
+        self.rect_1.bottomleft = (0, config.display_scale[1])
+        self.rect_2.bottomleft = (self.rect_1.right, config.display_scale[1])
+
+    def update(self) -> None:
+        """Move the ground in the game.
+
+        The ground moves as every other element in the game.
+        Different from the other elements, the ground exists
+        at every time of the game.
+        That means two different ground images are needed wich are
+        swiched every time one reaches the end.
+        If the right end of on of them cross the window border,
+        the other image is atteched at it's right side.
+        """
+        if self.rect_1.right <= 0:
+            self.rect_1.left = self.rect_2.right
+
+        if self.rect_2.right <= 0:
+            self.rect_2.left = self.rect_1.right
+
+        self.rect_1.move_ip(-self.OBJECT_SPEED, 0)
+        self.rect_2.move_ip(-self.OBJECT_SPEED, 0)
+
+        config.window.blit(self.immage_1, self.rect_1)
+        config.window.blit(self.immage_2, self.rect_2)
