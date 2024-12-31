@@ -85,7 +85,8 @@ def seperate_images(
 
     Args:
         image (pg.Surface): The image to seperate.
-        image_count (tuple[int, int]): The amount of the image to seperate. (width, height)
+        image_count (tuple[int, int]): The amount of the image
+        to seperate. Format: `(width, height)`
         size (tuple[float, float]): Factor to scale the image by.
 
     Returns:
