@@ -72,7 +72,7 @@ class TestDino(unittest.TestCase):
         dino: Dino = Dino()
         dino.status = Status.RUNNING
         dino._run()
-        self.assertEqual(dino.rect, dino.running_image[1])
+        self.assertEqual(dino.position_rect, dino.running_image[1])
         self.assertEqual(dino.current_image, dino.running_image[0][2])
         for _ in range(12):
             dino.counter.tick()
@@ -83,7 +83,7 @@ class TestDino(unittest.TestCase):
         dino: Dino = Dino()
         dino.status = Status.JUMPING
         dino._jump()
-        self.assertEqual(dino.rect, dino.running_image[1])
+        self.assertEqual(dino.position_rect, dino.running_image[1])
         self.assertEqual(dino.current_image, dino.running_image[0][0])
 
     def test__jump_movement(self) -> None:
@@ -107,7 +107,7 @@ class TestDino(unittest.TestCase):
         dino: Dino = Dino()
         dino.status = Status.SNEAKING
         dino._sneak()
-        self.assertEqual(dino.rect, dino.sneaking_image[1])
+        self.assertEqual(dino.position_rect, dino.sneaking_image[1])
         self.assertEqual(dino.current_image, dino.sneaking_image[0][0])
         for _ in range(12):
             dino.counter.tick()
@@ -123,24 +123,35 @@ class TestDino(unittest.TestCase):
     def test_check_collision_false(self) -> None:
         dino: Dino = Dino()
         dino.update()
-        non_colliding = GameElement(500, 200)
-        non_colliding.rect = pg.Rect(500, 200, 50, 50)
+        non_colliding: GameElement = GameElement(500, 200)
+        non_colliding.position_rect = pg.Rect(500, 200, 50, 50)
+        non_colliding.hitbox = pg.Rect(500, 200, 50, 50)
         self.assertFalse(dino.check_collision([non_colliding]))
 
     def test_check_collision_true(self) -> None:
         dino: Dino = Dino()
         dino.update()
-        colliding = GameElement(200, 200)
-        colliding.rect = pg.Rect(200, 200, 50, 50)
+        colliding: GameElement = GameElement(dino.x_position, dino.y_position)
+        colliding.position_rect: pg.Rect = pg.Rect(
+            dino.position_rect.topleft, dino.position_rect.size
+        )
+        colliding.hitbox: pg.Rect = pg.Rect(dino.hitbox.topleft, dino.hitbox.size)
         self.assertTrue(dino.check_collision([colliding]))
 
     def test_check_collision_multiple(self) -> None:
         dino: Dino = Dino()
         dino.update()
         non_colliding: GameElement = GameElement(500, 200)
-        non_colliding.rect = pg.Rect(500, 200, 50, 50)
-        colliding = GameElement(200, 200)
-        colliding.rect = pg.Rect(200, 200, 50, 50)
+        non_colliding.position_rect = pg.Rect(500, 200, 50, 50)
+        non_colliding.hitbox = pg.Rect(500, 200, 50, 50)
+        colliding: GameElement = GameElement(dino.x_position, dino.y_position)
+        colliding.position_rect: pg.Rect = pg.Rect(
+            dino.position_rect.topleft, dino.position_rect.size
+        )
+        colliding.hitbox: pg.Rect = pg.Rect(
+            dino.hitbox.topleft,
+            dino.hitbox.size,
+        )
         obstacles: list[GameElement] = [non_colliding, colliding]
         self.assertTrue(dino.check_collision(obstacles))
 

@@ -33,7 +33,7 @@ def full_path(file_name: str, image: bool = False) -> str:
 
 def load_image(
     file_name: str, size: tuple[float, float] = (0.6, 0.6)
-) -> tuple[pg.Surface, pg.Rect]:
+) -> tuple[pg.Surface, pg.Rect, pg.Rect]:
     """Load an image from a file and return it as a pygame.Surface object.
 
     Args:
@@ -41,8 +41,13 @@ def load_image(
         size (tuple[float, float]): Factor to scale the image by.
 
     Returns:
-        tuple[pg.Surface, pg.Rect]: The loaded image as a pygame.Surface object
-        and its rect representation.
+        Sprite[immage, positon, hitbox] (tuple[pg.Surface, pg.Rect, pg.Rect]):
+        The loaded image as a pygame.Surface object and two rect representations.
+        The first is object is the immage itself.
+        The secound is a rect with the size of the immage.
+        It is used to position the immage.
+        The third is a hitbox that is used to check for collisions.
+        It is sized down by the given size parameter.
     """
     path: str = full_path(file_name, True)
     try:
@@ -53,9 +58,10 @@ def load_image(
     # Makes the background of the image transparent
     image.set_colorkey(image.get_at((0, 0)))
 
-    rect: pg.Rect = image.get_rect()
-    rect.scale_by_ip(size[0], size[1])
-    return (image, rect)
+    position_rect: pg.Rect = image.get_rect()
+    hitbox: pg.Rect = image.get_rect()
+    hitbox.scale_by_ip(size[0], size[1])
+    return (image, position_rect, hitbox)
 
 
 def load_sound(file_name: str) -> pg.mixer.Sound:
@@ -79,7 +85,7 @@ def seperate_images(
     image: pg.Surface,
     image_count: tuple[int, int],
     size: tuple[float, float] = (0.6, 0.6),
-) -> tuple[list[pg.Surface], pg.Rect]:
+) -> tuple[list[pg.Surface], pg.Rect, pg.Rect]:
     """Seperate an image into smaller images of a given size.
     All of them must have the same size and must be ordered in a grid.
 
@@ -90,9 +96,15 @@ def seperate_images(
         size (tuple[float, float]): Factor to scale the image by.
 
     Returns:
-        touple[List[pg.Surface], Rect]: List of the seperated images
-        and their regt representation.
+        Sprites[immages, position_rect, hitbox] (tuple[list[pg.Surface], pg.Rect, pg.Rect]):  # noqa: E501  # pylint: disable=line-too-long
+        A list of the seperated images as pygame.Surface objects.
+        The first object is a list of the different immages.
+        The secound is a rect with the size of the immage.
+        It is used to position the immages.
+        The third is a hitbox that is used to check for collisions.
+        It is sized down by the given size parameter.
     """
+
     width: float = image.get_width() / image_count[0]
     height: float = image.get_height() / image_count[1]
     immages: list[pg.Surface] = []
@@ -101,6 +113,7 @@ def seperate_images(
         for j in range(image_count[0]):
             immages.append(image.subsurface((j * width, i * height, width, height)))
 
-    rect = immages[0].get_rect()
-    rect.scale_by_ip(size[0], size[1])
-    return (immages, rect)
+    position_rect: pg.Rect = immages[0].get_rect()
+    hitbox: pg.Rect = immages[0].get_rect()
+    hitbox.scale_by_ip(size[0], size[1])
+    return (immages, position_rect, hitbox)
