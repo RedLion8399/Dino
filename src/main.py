@@ -100,18 +100,14 @@ def main() -> None:
         """
 
         # Obstacles
-        if len(obstacle_list) < 3:
-            # Only spawn obstacles every 20 frames
-            if counter.cactus_counter > 20:
-                # Chose between cactus and bird
-                # Cacti are double the chance than birds
-                match rd.randint(0, 400):
-                    case 0 | 1 | 2 | 3:
-                        obstacle_list.append(Cactus())
-                    case 4:
-                        obstacle_list.append(Bird())
-                    case _:
-                        pass
+        if len(obstacle_list) < 3 and counter.cactus_counter > 35:
+            # Spawn only every 20 frames and max 3 obstacles
+            random: float = len(obstacle_list)**5 * rd.random()
+            if random < 0.8:
+                if random < 0.25:
+                    obstacle_list.append(Cactus())
+                else:
+                    obstacle_list.append(Bird())
 
         for obstacle in obstacle_list:
             obstacle_group.add(obstacle)
