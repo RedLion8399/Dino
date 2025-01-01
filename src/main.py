@@ -102,7 +102,7 @@ def main() -> None:
         # Obstacles
         if len(obstacle_list) < 3 and counter.cactus_counter > 35:
             # Spawn only every 20 frames and max 3 obstacles
-            random: float = len(obstacle_list)**5 * rd.random()
+            random: float = len(obstacle_list) ** 5 * rd.random()
             if random < 0.8:
                 if random < 0.25:
                     obstacle_list.append(Cactus())
