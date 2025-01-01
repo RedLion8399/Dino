@@ -13,6 +13,7 @@ from typing import Final
 
 import pygame as pg
 
+from config import config
 from obstacles import GameElement
 from recourses import load_image, seperate_images
 
@@ -46,7 +47,7 @@ class Dino(GameElement):
     """
 
     def __init__(self) -> None:
-        self.DEFAULT_POSITION: Final[tuple[int, int]] = (200, 200)
+        self.DEFAULT_POSITION: Final[tuple[int, int]] = (200, config.display_scale[1])
         self.DEFAULT_VELOCITY: Final[float] = -18
 
         self.GRAVITY: Final[float] = 1.2
@@ -57,8 +58,8 @@ class Dino(GameElement):
         super().__init__(self.DEFAULT_POSITION[0], self.DEFAULT_POSITION[1])
 
         self.OBJECT_SPEED = 0
-        self.running_image: tuple[list[pg.Surface], pg.Rect]
-        self.sneaking_image: tuple[list[pg.Surface], pg.Rect]
+        self.running_image: tuple[list[pg.Surface], pg.Rect, pg.Rect]
+        self.sneaking_image: tuple[list[pg.Surface], pg.Rect, pg.Rect]
         self.load_images()
 
     def process_input(self, event: pg.event.Event) -> None:
@@ -100,7 +101,9 @@ class Dino(GameElement):
         The Dino has two images for running. To create a running animation
         the Dino changes between the two images every 20 frames.
         """
-        self.rect = self.running_image[1]
+        self.position_rect = self.running_image[1]
+        self.hitbox = self.running_image[2]
+
         if self.counter.dino_running_status:
             self.current_image = self.running_image[0][2]
         else:
@@ -108,8 +111,9 @@ class Dino(GameElement):
 
     def _jump(self) -> None:
         """Set the Dino's image to the jumping image."""
-        self.rect = self.running_image[1]
         self.current_image = self.running_image[0][0]
+        self.position_rect = self.running_image[1]
+        self.hitbox = self.running_image[2]
 
         self.y_position += self.jump_velocity
         self.jump_velocity += self.GRAVITY
@@ -125,7 +129,9 @@ class Dino(GameElement):
         The Dino has two images for sneaking. To create a sneaking animation
         the Dino changes between the two images every 20 frames.
         """
-        self.rect = self.sneaking_image[1]
+        self.position_rect = self.sneaking_image[1]
+        self.hitbox = self.sneaking_image[2]
+
         if self.counter.dino_running_status:
             self.current_image = self.sneaking_image[0][0]
         else:
@@ -141,7 +147,7 @@ class Dino(GameElement):
             bool: True if the dino collides with an object, False otherwise.
         """
         for obstacle in obstacles:
-            if pg.Rect.colliderect(self.rect, obstacle.rect):
+            if pg.Rect.colliderect(self.hitbox, obstacle.hitbox):
                 return True
         return False
 
