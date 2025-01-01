@@ -58,6 +58,7 @@ class Cactus(GameElement):
         self.image_1 = seperate_images(load_image("cactus-big.png")[0], (3, 1))
         self.image_2 = seperate_images(load_image("cactus-small.png")[0], (3, 1))
 
+        self.counter.reset_obstacle_counter()
         self.random_image()
 
     def random_image(self) -> None:
@@ -89,6 +90,8 @@ class Bird(GameElement):
         self.position_rect = self.image[1]
         self.hitbox = self.image[2]
 
+        self.counter.reset_obstacle_counter()
+
     def update(self) -> None:
         """Updates the whole Bird element in the game.
 
@@ -112,6 +115,8 @@ class Cloud(GameElement):
         super().__init__(config.display_scale[0], rd.randint(120, 250))
         self.current_image, self.position_rect, self.hitbox = load_image("cloud.png")
         self.OBJECT_SPEED = 1
+
+        self.counter.reset_cloud_counter()
 
 
 class Ground(GameElement):

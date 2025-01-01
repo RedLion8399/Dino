@@ -21,6 +21,8 @@ class Counter:
         highscore: The highscore from previous games. It's loaded from a file.
     """
 
+    _innitialized: bool = False
+
     def __new__(cls):
         """Ensure that only one instance of the Counter class exists.
 
@@ -35,11 +37,15 @@ class Counter:
 
     def __init__(self) -> None:
         """Initialize the Counter class and load the highscore from a file."""
+        if self._innitialized:
+            return
         self.frames: int = 0
         self.highscore: int = self.__load_highscore()
 
         self._cactus_counter: int = 0
         self._cloud_counter: int = 0
+
+        self._innitialized = True
 
     def save_highscore(self) -> None:
         """This method saves the current highscore to a file.
@@ -69,7 +75,7 @@ class Counter:
         """Increase the frame counter by one every time this method is called."""
         self.frames += 1
 
-    def reset_cactus_counter(self) -> None:
+    def reset_obstacle_counter(self) -> None:
         """Set the current frame number when a new cactus is generated."""
         self._cactus_counter = self.frames
 
