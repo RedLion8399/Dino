@@ -14,6 +14,8 @@ class TestGameElement(unittest.TestCase):
     def setUp(self) -> None:
         config.display_scale = (800, 600)
         config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.object_speed = 10
         config.init_screen()
 
     def test_init(self):
@@ -28,29 +30,32 @@ class TestGameElement(unittest.TestCase):
         self.assertEqual(game_element.x_position, -9)
 
     def test_update(self):
-        game_element = GameElement(0, 0)
+        game_element = GameElement(100, 100)
         game_element.current_image = pg.Surface((100, 100))
-        game_element.rect = pg.Rect(0, 0, 100, 100)
+        game_element.position_rect = pg.Rect(0, 0, 100, 100)
+        game_element.hitbox = pg.Rect(0, 0, 100, 100)
         game_element.OBJECT_SPEED = 5
         game_element.update()
-        self.assertEqual(game_element.x_position, -5)
-        self.assertEqual(game_element.y_position, 0)
+        self.assertEqual(game_element.x_position, 95)
+        self.assertEqual(game_element.y_position, 100)
 
     def test_update_kill(self):
         game_element = GameElement(0, 0)
         elements: pg.sprite.Group[GameElement] = pg.sprite.Group()  # type: ignore
         elements.add(game_element)
-        game_element.current_image = pg.Surface((100, 100))
-        game_element.rect = pg.Rect(0, 0, 100, 100)
+        game_element.current_image = pg.Surface((1, 1))
+        game_element.position_rect = pg.Rect(0, 0, 1, 1)
+        game_element.hitbox = pg.Rect(0, 0, 1, 1)
         game_element.update()
-        self.assertEqual(game_element.alive(), False)
+        self.assertFalse(game_element.alive())
 
     def test_update_alive(self):
         game_element = GameElement(100, 0)
         elements: pg.sprite.Group[GameElement] = pg.sprite.Group()  # type: ignore
         elements.add(game_element)
         game_element.current_image = pg.Surface((100, 100))
-        game_element.rect = pg.Rect(0, 0, 100, 100)
+        game_element.position_rect = pg.Rect(0, 0, 100, 100)
+        game_element.hitbox = pg.Rect(0, 0, 100, 100)
         game_element.update()
         self.assertEqual(game_element.alive(), True)
 
@@ -65,7 +70,7 @@ class TestCactus(unittest.TestCase):
     def test_init_position(self):
         cactus = Cactus()
         self.assertEqual(cactus.x_position, config.display_scale[0])
-        self.assertEqual(cactus.y_position, 200)
+        self.assertEqual(cactus.y_position, config.display_scale[1])
 
     def test_init_images(self):
         cactus = Cactus()
@@ -80,7 +85,7 @@ class TestCactus(unittest.TestCase):
         cactus = Cactus()
         cactus.random_image()
         self.assertIsInstance(cactus.current_image, pg.Surface)
-        self.assertIsInstance(cactus.rect, pg.Rect)
+        self.assertIsInstance(cactus.position_rect, pg.Rect)
 
 
 class TestBird(unittest.TestCase):
@@ -93,7 +98,7 @@ class TestBird(unittest.TestCase):
     def test_init_position(self):
         bird = Bird()
         self.assertEqual(bird.x_position, config.display_scale[0])
-        self.assertIn(bird.y_position, [75, 200])
+        self.assertIn(bird.y_position, [150, 300])
 
     def test_init_images(self):
         bird = Bird()
@@ -118,12 +123,12 @@ class TestCloud(unittest.TestCase):
     def test_init_position(self):
         cloud = Cloud()
         self.assertEqual(cloud.x_position, config.display_scale[0])
-        self.assertIn(cloud.y_position, range(50, 101))
+        self.assertIn(cloud.y_position, range(120, 250))
 
     def test_init_images(self):
         cloud = Cloud()
         self.assertTrue(cloud.current_image)
-        self.assertTrue(cloud.rect)
+        self.assertTrue(cloud.position_rect)
 
 
 class TestGround(unittest.TestCase):
