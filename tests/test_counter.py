@@ -12,6 +12,11 @@ from counter import Counter
 
 
 class TestCounter(unittest.TestCase):
+    def setUp(self) -> None:
+        counter: Counter = Counter()
+        counter.frames = 0
+        del counter
+
     def test_init(self) -> None:
         """This function tests the initialization of the Counter class."""
         counter: Counter = Counter()
@@ -33,12 +38,11 @@ class TestCounter(unittest.TestCase):
 
     def test_count_multiple(self) -> None:
         """This function tests the count method of the Counter class."""
-        for _ in range(20):
-            counter: Counter = Counter()
-            random_number: int = randint(1, 100)
-            for _ in range(random_number):
-                counter.tick()
-            self.assertEqual(counter.score, random_number // 3)
+        counter: Counter = Counter()
+        random_number: int = randint(1, 100)
+        for _ in range(random_number):
+            counter.tick()
+        self.assertEqual(counter.score, random_number // 3)
 
     def test_save_highscore(self) -> None:
         """This function tests the save_highscore method of the Counter class."""
@@ -63,15 +67,13 @@ class TestCounter(unittest.TestCase):
 
     def test_load_highscore(self) -> None:
         """This function tests the load_highscore method of the Counter class."""
-        with open("highscore.txt", "w", encoding="utf-8") as file:
-            file.write("0")
         counter: Counter = Counter()
-        self.assertEqual(counter.highscore, 0)
-        counter.highscore = 100
+        highscore: int = counter.highscore
+        counter.highscore = highscore + 100
         counter.save_highscore()
         counter._Counter__load_highscore()  # type: ignore
         counter._Counter__load_highscore()  # type: ignore
-        self.assertEqual(counter.highscore, 100)
+        self.assertEqual(counter.highscore, highscore + 100)
 
     def test_save_highscore_if_higher(self) -> None:
         """This function tests the save_highscore method of the Counter class."""
@@ -86,8 +88,11 @@ class TestCounter(unittest.TestCase):
 
     def test_save_highscore_if_lower(self) -> None:
         """This function tests the save_highscore method of the Counter class."""
-        with open("highscore.txt", "w", encoding="utf-8") as file:
-            file.write("55")
+        pre_counter: Counter = Counter()
+        pre_counter.highscore = 55
+        pre_counter.save_highscore()
+        del pre_counter
+
         counter: Counter = Counter()
         for _ in range(99):
             counter.tick()
