@@ -107,10 +107,10 @@ class TestBird(unittest.TestCase):
     def test_bird_update_animation(self):
         bird = Bird()
         bird.update()
-        self.assertIs(bird.current_image, bird.image[0][0])
-        bird.counter.frames = 22
-        bird.update()
         self.assertIs(bird.current_image, bird.image[0][1])
+        bird.counter.frames = 18
+        bird.update()
+        self.assertIs(bird.current_image, bird.image[0][0])
 
 
 class TestCloud(unittest.TestCase):

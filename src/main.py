@@ -113,11 +113,16 @@ def main() -> None:
             obstacle_group.add(obstacle)
 
         # Clouds
-        if len(cloud_list) < 3:
-            # Only spawn clouds every 100 frames
-            if counter.cloud_counter > 100:
-                if not rd.randint(0, 1000):
-                    cloud_list.append(Cloud())
+        cloud_propability: dict[int, float] = {
+            0: 1,
+            1: 1 / 1000,
+            2: 1 / 2200,
+        }
+
+        # Only spawn clouds every 100 frames
+        if counter.cloud_counter > 100:
+            if cloud_propability.get(len(cloud_list), 0) > rd.random():
+                cloud_list.append(Cloud())
 
         for cloud in cloud_list:
             cloud_group.add(cloud)

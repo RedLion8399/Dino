@@ -108,11 +108,11 @@ class TestDino(unittest.TestCase):
         dino.status = Status.SNEAKING
         dino._sneak()
         self.assertEqual(dino.position_rect, dino.sneaking_image[1])
-        self.assertEqual(dino.current_image, dino.sneaking_image[0][0])
-        for _ in range(12):
+        self.assertEqual(dino.current_image, dino.sneaking_image[0][1])
+        for _ in range(15):
             dino.counter.tick()
             dino._sneak()
-        self.assertEqual(dino.current_image, dino.sneaking_image[0][1])
+        self.assertEqual(dino.current_image, dino.sneaking_image[0][0])
 
     def test_update_animations(self) -> None:
         dino: Dino = Dino()
