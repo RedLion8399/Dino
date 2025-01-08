@@ -1,9 +1,11 @@
 # type: ignore
 # pylint: disable=missing-docstring, no-member
 import unittest
-import pygame as pg
-from score import Score
 from unittest.mock import Mock, patch
+
+import pygame as pg
+
+from score import Score
 
 
 class TestScore(unittest.TestCase):
