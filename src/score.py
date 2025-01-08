@@ -22,15 +22,38 @@ class Score(GameElement):
         self.immages = seperate_images(load_image("numbers.png")[0], (12, 1))
         self.immage, self.position_rect, self.hitbox = self.immages
 
-    def update(self) -> None:
-        # At first the singulat chars are seperated and
-        # filled up to a total of five using zeros
-        sore: int = self.counter.score
-        digits: list[int] = [int(digit) for digit in str(sore)]
+    def split_number(self, number: int) -> list[int]:
+        """Split an int into a list of digits of a length of five
+
+        Args:
+            number (int): The number to be split
+
+        Returns:
+            list[int]: The list of split digits
+        """
+        digits: list[int] = [int(digit) for digit in str(number)]
         digits.reverse()
         while len(digits) < 5:
             digits.append(0)
         digits.reverse()
+        return digits
+
+    def display_highscore(self) -> None:
+        highscore: int = self.counter.highscore
+        digits: list[int] = self.split_number(highscore)
+        digits.insert(0, 10)
+        digits.insert(1, 11)
+
+        for i, digit in enumerate(digits):
+            self.current_image = self.immage[digit]
+            self.position_rect.x = config.display_scale[0] - 350 + i * 25
+            config.window.blit(self.current_image, self.position_rect)
+
+    def update(self) -> None:
+        # At first the singulat chars are seperated and
+        # filled up to a total of five using zeros
+        sore: int = self.counter.score
+        digits: list[int] = self.split_number(sore)
 
         # The immages are then filled up with the digits
         # and the immages are blit to the screen

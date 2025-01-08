@@ -60,6 +60,7 @@ def main() -> None:
         """This function is called when the game is over."""
         counter.save_highscore()
         counter.frames = 0
+        score.display_highscore()
         replay_button.replay(main)
 
     def update() -> None:
