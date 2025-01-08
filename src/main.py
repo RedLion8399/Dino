@@ -16,6 +16,7 @@ from config import ColorTheme, config
 from counter import Counter
 from dino import Dino
 from obstacles import Bird, Cactus, Cloud, GameElement, Ground
+from replay_button import ReplayButton
 
 
 def main() -> None:
@@ -41,6 +42,7 @@ def main() -> None:
     counter: Counter = Counter()
     dino: Dino = Dino()
     ground: Ground = Ground()
+    replay_button: ReplayButton = ReplayButton()
 
     def get_input() -> None:
         """This function gets the input from the user.
@@ -55,8 +57,7 @@ def main() -> None:
     def game_over() -> None:
         """This function is called when the game is over."""
         counter.save_highscore()
-        pg.quit()
-        sys.exit()
+        replay_button.replay(main)
 
     def update() -> None:
         """Update all grafic representations of the game elements."""
