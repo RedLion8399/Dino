@@ -6,11 +6,13 @@ the player to replay the game after losing.
 
 # pylint: disable=no-member
 
-from typing import Callable
 import sys
+from typing import Callable
+
 import pygame as pg
-from obstacles import GameElement
+
 from config import config
+from obstacles import GameElement
 from recourses import load_image
 
 
