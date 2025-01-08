@@ -17,6 +17,7 @@ from counter import Counter
 from dino import Dino
 from obstacles import Bird, Cactus, Cloud, GameElement, Ground
 from replay_button import ReplayButton
+from score import Score
 
 
 def main() -> None:
@@ -43,6 +44,7 @@ def main() -> None:
     dino: Dino = Dino()
     ground: Ground = Ground()
     replay_button: ReplayButton = ReplayButton()
+    score: Score = Score()
 
     def get_input() -> None:
         """This function gets the input from the user.
@@ -57,6 +59,8 @@ def main() -> None:
     def game_over() -> None:
         """This function is called when the game is over."""
         counter.save_highscore()
+        counter.frames = 0
+        score.display_highscore()
         replay_button.replay(main)
 
     def update() -> None:
@@ -66,6 +70,7 @@ def main() -> None:
         cloud_group.update()
         obstacle_group.update()
         game_objects.update()
+        score.update()
 
     def update_obstacles(obstacles: list[GameElement]) -> list[GameElement]:
         """Update all grafic representations of the game elements.
