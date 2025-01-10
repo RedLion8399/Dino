@@ -39,6 +39,7 @@ class Score(GameElement):
         return digits
 
     def display_highscore(self) -> None:
+        """Display the highscore on the screen"""
         highscore: int = self.counter.highscore
         digits: list[int] = self.split_number(highscore)
         digits.insert(0, 10)
