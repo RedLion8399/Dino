@@ -1,8 +1,6 @@
 """
-sound.py
-
-This module defines the `Sound` class for managing and playing various sound effects 
-in the Chrome Dino game. It encapsulates methods to load and play sound files 
+This module defines the `Sound` class for managing and playing various sound effects
+in the Chrome Dino game. It encapsulates methods to load and play sound files
 associated with different game events.
 """
 

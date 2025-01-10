@@ -6,6 +6,8 @@ Classes:
     Counter: Containing the mian logic for counting the players score.
 """
 
+from sound import Sound
+
 
 class Counter:
     """Count the different game scores.
@@ -45,6 +47,8 @@ class Counter:
         self._cactus_counter: int = 0
         self._cloud_counter: int = 0
 
+        self.sound: Sound = Sound()
+
         self._innitialized = True
 
     def save_highscore(self) -> None:
@@ -74,6 +78,14 @@ class Counter:
     def tick(self) -> None:
         """Increase the frame counter by one every time this method is called."""
         self.frames += 1
+
+    def check_pont_sound(self) -> None:
+        """This method plays a sound when a new check point is reached.
+
+        The sound is played every 200 frames.
+        """
+        if not self.score % 200:
+            self.sound.play_check_point()
 
     def reset_obstacle_counter(self) -> None:
         """Set the current frame number when a new cactus is generated."""

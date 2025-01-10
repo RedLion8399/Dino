@@ -33,9 +33,10 @@ class Config:
         self.background_color: pg.Color
         self.frame_rate: int
 
-    def init_screen(self) -> None:
-        """Initialize the game screen globally."""
+    def init_game(self) -> None:
+        """Initialize the game globally."""
         pg.init()
+        pg.mixer.init()
         self.window = pg.display.set_mode(self.display_scale)
         pg.display.set_caption(self.caption)
         self.window.fill(self.background_color)

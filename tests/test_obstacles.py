@@ -16,7 +16,7 @@ class TestGameElement(unittest.TestCase):
         config.caption = "Dino"
         config.background_color = pg.Color(255, 255, 255)
         config.object_speed = 10
-        config.init_screen()
+        config.init_game()
 
     def test_init(self):
         game_element = GameElement(0, 0)
@@ -65,7 +65,7 @@ class TestCactus(unittest.TestCase):
         config.display_scale = (800, 300)
         config.caption = "Dino"
         config.background_color = pg.Color(255, 255, 255)
-        config.init_screen()
+        config.init_game()
 
     def test_init_position(self):
         cactus = Cactus()
@@ -93,7 +93,7 @@ class TestBird(unittest.TestCase):
         config.display_scale = (800, 300)
         config.caption = "Dino"
         config.background_color = pg.Color(255, 255, 255)
-        config.init_screen()
+        config.init_game()
 
     def test_init_position(self):
         bird = Bird()
@@ -118,7 +118,7 @@ class TestCloud(unittest.TestCase):
         config.display_scale = (800, 300)
         config.caption = "Dino"
         config.background_color = pg.Color(255, 255, 255)
-        config.init_screen()
+        config.init_game()
 
     def test_init_position(self):
         cloud = Cloud()
@@ -136,7 +136,7 @@ class TestGround(unittest.TestCase):
         config.display_scale = (800, 300)
         config.caption = "Dino"
         config.background_color = pg.Color(255, 255, 255)
-        config.init_screen()
+        config.init_game()
 
     def test_init_position(self):
         ground = Ground()

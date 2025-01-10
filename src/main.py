@@ -32,7 +32,7 @@ def main() -> None:
     config.background_color = pg.Color(255, 255, 255)
     config.object_speed = 7
     config.frame_rate = 60
-    config.init_screen()
+    config.init_game()
 
     game_objects: pg.sprite.Group[GameElement] = pg.sprite.Group()
     obstacle_list: list[GameElement] = []
@@ -144,6 +144,7 @@ def main() -> None:
         get_input()
         counter.tick()
         update()
+        counter.check_pont_sound()
 
         if dino.check_collision(obstacle_list):
             break

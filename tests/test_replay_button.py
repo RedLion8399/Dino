@@ -14,7 +14,7 @@ class TestReplayButton(unittest.TestCase):
         config.caption = "Dino"
         config.background_color = pg.Color(255, 255, 255)
         config.object_speed = 10
-        config.init_screen()
+        config.init_game()
         self.replay_button = ReplayButton()
 
     def test_init(self):
