@@ -9,7 +9,9 @@ associated with different game events.
 # pylint: disable=invalid-name
 
 from typing import Final
+
 import pygame as pg
+
 from recourses import load_sound
 
 
