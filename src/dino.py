@@ -16,6 +16,7 @@ import pygame as pg
 from config import config
 from obstacles import GameElement
 from recourses import load_image, seperate_images
+from sound import Sound
 
 
 class Status(Enum):
@@ -61,6 +62,7 @@ class Dino(GameElement):
         self.running_image: tuple[list[pg.Surface], pg.Rect, pg.Rect]
         self.sneaking_image: tuple[list[pg.Surface], pg.Rect, pg.Rect]
         self.load_images()
+        self.sound: Sound = Sound()
 
     def process_input(self, event: pg.event.Event) -> None:
         """This function gets the input from the user.
@@ -89,6 +91,8 @@ class Dino(GameElement):
         if event.type == pg.KEYDOWN:
             if event.key in JUMP_KEYS and self.status == Status.RUNNING:
                 self.status = Status.JUMPING
+                self.sound.play_jump()
+
             if event.key in SNEAK_KEYS and self.status == Status.RUNNING:
                 self.status = Status.SNEAKING
         if event.type == pg.KEYUP:

@@ -61,6 +61,7 @@ def main() -> None:
         counter.save_highscore()
         counter.frames = 0
         score.display_highscore()
+        dino.sound.play_die()
         replay_button.replay(main)
 
     def update() -> None:
