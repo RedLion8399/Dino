@@ -1,16 +1,21 @@
 # type: ignore
-# pylint: disable=missing-docstring, no-member
+# pylint: disable=missing-docstring, no-member, disable=protected-access
 import unittest
 from unittest.mock import Mock, patch
 
 import pygame as pg
 
 from score import Score
+from config import config
 
 
 class TestScore(unittest.TestCase):
     def setUp(self):
-        pg.init()
+        config.display_scale = (800, 600)
+        config.caption = "Dino"
+        config.background_color = pg.Color(255, 255, 255)
+        config.init_game()
+
         self.score = Score()
         self.score.counter = Mock()
 
@@ -40,6 +45,12 @@ class TestScore(unittest.TestCase):
         self.score.update()
         self.assertEqual(mock_config.window.blit.call_count, 5)
 
+    @patch("score.config")
+    def test_display_characters(self, mock_config):
+        mock_config.display_scale = (800, 600)
+        test_characters = [1, 2, 3]
+        test_position = 100
 
-if __name__ == "__main__":
-    unittest.main()
+        self.score._display_characters(test_position, test_characters)
+
+        self.assertEqual(mock_config.window.blit.call_count, 3)

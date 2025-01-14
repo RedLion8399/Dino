@@ -18,9 +18,9 @@ class Score(GameElement):
         super().__init__(config.display_scale[0], 0)
         self.OBJECT_SPEED = 0
 
-        self.immages: tuple[list[pg.Surface], pg.Rect, pg.Rect]
-        self.immages = seperate_images(load_image("numbers.png")[0], (12, 1))
-        self.immage, self.position_rect, self.hitbox = self.immages
+        self.images: tuple[list[pg.Surface], pg.Rect, pg.Rect]
+        self.images = seperate_images(load_image("numbers.png")[0], (12, 1))
+        self.image, self.position_rect, self.hitbox = self.images
 
     def split_number(self, number: int) -> list[int]:
         """Split an int into a list of digits of a length of five
@@ -46,11 +46,11 @@ class Score(GameElement):
             The position is counted from the right of the leftmost character
             to the right side of the screen
             characters (list[int]): The list of characters to be displayed
-            It refers to the immage list of the Score class
+            It refers to the image list of the Score class
         """
 
         for i, character in enumerate(characters):
-            self.current_image = self.immage[character]
+            self.current_image = self.image[character]
             self.position_rect.x = config.display_scale[0] - position + i * 25
             config.window.blit(self.current_image, self.position_rect)
 
