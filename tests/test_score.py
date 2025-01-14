@@ -5,8 +5,8 @@ from unittest.mock import Mock, patch
 
 import pygame as pg
 
-from score import Score
 from config import config
+from score import Score
 
 
 class TestScore(unittest.TestCase):
