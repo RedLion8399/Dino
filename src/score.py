@@ -38,17 +38,32 @@ class Score(GameElement):
         digits.reverse()
         return digits
 
+    def _display_characters(self, position: int, characters: list[int]) -> None:
+        """Display a list of characters on the screen
+
+        Args:
+            position (int): The position on the screen
+            The position is counted from the right of the leftmost character
+            to the right side of the screen
+            characters (list[int]): The list of characters to be displayed
+            It refers to the immage list of the Score class
+        """
+
+        for i, character in enumerate(characters):
+            self.current_image = self.immage[character]
+            self.position_rect.x = config.display_scale[0] - position + i * 25
+            config.window.blit(self.current_image, self.position_rect)
+
     def display_highscore(self) -> None:
         """Display the highscore on the screen"""
         highscore: int = self.counter.highscore
         digits: list[int] = self.split_number(highscore)
-        digits.insert(0, 10)
-        digits.insert(1, 11)
 
-        for i, digit in enumerate(digits):
-            self.current_image = self.immage[digit]
-            self.position_rect.x = config.display_scale[0] - 350 + i * 25
-            config.window.blit(self.current_image, self.position_rect)
+        self._display_characters(300, digits)
+
+        digits = [10, 11]
+
+        self._display_characters(365, digits)
 
     def update(self) -> None:
         # At first the singulat chars are seperated and
@@ -56,9 +71,4 @@ class Score(GameElement):
         sore: int = self.counter.score
         digits: list[int] = self.split_number(sore)
 
-        # The immages are then filled up with the digits
-        # and the immages are blit to the screen
-        for i, digit in enumerate(digits):
-            self.current_image = self.immage[digit]
-            self.position_rect.x = config.display_scale[0] - 125 + i * 25
-            config.window.blit(self.current_image, self.position_rect)
+        self._display_characters(125, digits)
