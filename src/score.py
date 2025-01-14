@@ -54,7 +54,7 @@ class Score(GameElement):
             self.position_rect.x = config.display_scale[0] - position + i * 25
             config.window.blit(self.current_image, self.position_rect)
 
-    def display_highscore(self) -> None:
+    def _display_highscore(self) -> None:
         """Display the highscore on the screen"""
         highscore: int = self.counter.highscore
         digits: list[int] = self.split_number(highscore)
@@ -72,3 +72,5 @@ class Score(GameElement):
         digits: list[int] = self.split_number(sore)
 
         self._display_characters(125, digits)
+
+        self._display_highscore()

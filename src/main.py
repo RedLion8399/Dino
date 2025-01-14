@@ -60,7 +60,6 @@ def main() -> None:
         """This function is called when the game is over."""
         counter.save_highscore()
         counter.frames = 0
-        score.display_highscore()
         dino.sound.play_die()
         replay_button.replay(main)
 

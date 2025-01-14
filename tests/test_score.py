@@ -36,7 +36,7 @@ class TestScore(unittest.TestCase):
     @patch("score.config")
     def test_display_highscore(self, mock_config):
         self.score.counter.highscore = 12345
-        self.score.display_highscore()
+        self.score._display_highscore()
         self.assertEqual(mock_config.window.blit.call_count, 7)
 
     @patch("score.config")
