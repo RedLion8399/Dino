@@ -26,7 +26,7 @@ class Config:
 
     def __init__(self) -> None:
         self.color_theme: ColorTheme = ColorTheme.LIGHT_GRAY
-        self.display_scale: tuple[int, int]
+        self.display_scale: tuple[int, int] = (800, 300)
         self.caption: str
         self.object_speed: int = 0
         self.window: pg.Surface

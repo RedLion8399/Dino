@@ -1,26 +1,41 @@
-# pylint: disable=missing-docstring, disable=no-member, disable=protected-access
+# pylint: disable=missing-docstring, disable=no-member, disable=protected-access, disable=unused-argument, disable=undefined-variable  # noqa: E501
 # type: ignore
 
+
 import unittest
+from unittest.mock import patch, MagicMock
 
 import pygame as pg
 
+from game_elements import Dino, Status, GameElement
+
 from config import config
-from game_elements import Dino, GameElement, Status
 
 
 class TestDino(unittest.TestCase):
-    def setUp(self) -> None:
-        config.display_scale = (800, 200)
-        config.caption = "Dino"
-        config.background_color = pg.Color(255, 255, 255)
-        config.init_game()
 
-    def test_init(self) -> None:
+    @patch.object(config, "display_scale", (800, 300))  # noqa: F821
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_init(
+        self,
+        mock_sound: MagicMock,
+        mock_seperate: MagicMock,
+        mock_load_image: MagicMock,
+        mock_load: MagicMock,
+    ) -> None:
         """This function tests the initialization of the Dino class."""
         dino: Dino = Dino()
-        self.assertEqual(dino.y_position, 200)
+
+        mock_sound.assert_called_once()
+        self.assertEqual(mock_load.call_count, 2)
+        self.assertEqual(mock_seperate.call_count, 2)
+
+        self.assertEqual(dino.y_position, 300)
         self.assertEqual(dino.x_position, 200)
+
         self.assertEqual(dino.status, Status.RUNNING)
 
     # The following functions tests the process_input method of the Dino class.
