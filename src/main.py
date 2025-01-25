@@ -14,9 +14,9 @@ import pygame as pg
 
 from config import ColorTheme, config
 from counter import Counter
-from game_elements.dino import Dino
-from game_elements.obstacles import Bird, Cactus, Cloud, GameElement, Ground
-from game_elements.replay_button import ReplayButton
+from game_elements import Dino
+from game_elements import Bird, Cactus, Cloud, GameElement, Ground
+from game_elements import ReplayButton
 from score import Score
 
 

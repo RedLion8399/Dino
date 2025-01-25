@@ -5,7 +5,7 @@ import unittest
 import pygame as pg
 
 from config import config
-from game_elements.replay_button import ReplayButton
+from game_elements import ReplayButton
 
 
 class TestReplayButton(unittest.TestCase):
