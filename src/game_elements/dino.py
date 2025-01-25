@@ -14,7 +14,7 @@ from typing import Final
 import pygame as pg
 
 from config import config
-from obstacles import GameElement
+from game_elements.obstacles import GameElement
 from recourses import load_image, seperate_images
 from sound import Sound
 

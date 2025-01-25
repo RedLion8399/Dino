@@ -7,7 +7,7 @@ import unittest
 import pygame as pg
 
 from config import config
-from obstacles import Bird, Cactus, Cloud, GameElement, Ground
+from game_elements.obstacles import Bird, Cactus, Cloud, GameElement, Ground
 
 
 class TestGameElement(unittest.TestCase):
