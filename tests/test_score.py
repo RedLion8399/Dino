@@ -41,9 +41,10 @@ class TestScore(unittest.TestCase):
 
     @patch("score.config")
     def test_update(self, mock_config):
+        self.score.counter.highscore = 23456
         self.score.counter.score = 12345
         self.score.update()
-        self.assertEqual(mock_config.window.blit.call_count, 5)
+        self.assertEqual(mock_config.window.blit.call_count, 12)
 
     @patch("score.config")
     def test_display_characters(self, mock_config):
