@@ -6,8 +6,7 @@ import unittest
 import pygame as pg
 
 from config import config
-from game_elements import Dino, Status
-from game_elements import GameElement
+from game_elements import Dino, GameElement, Status
 
 
 class TestDino(unittest.TestCase):
