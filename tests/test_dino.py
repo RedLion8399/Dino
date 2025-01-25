@@ -3,13 +3,12 @@
 
 
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import pygame as pg
 
-from game_elements import Dino, Status, GameElement
-
 from config import config
+from game_elements import Dino, GameElement, Status
 
 
 class TestDino(unittest.TestCase):
