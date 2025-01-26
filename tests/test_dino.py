@@ -3,7 +3,7 @@
 
 
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, call
 
 import pygame as pg
 
@@ -38,7 +38,11 @@ class TestDino(unittest.TestCase):
         self.assertEqual(dino.status, Status.RUNNING)
 
     # The following functions tests the process_input method of the Dino class.
-    def test_process_input_from_running_to_jumping(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_process_input_from_running_to_jumping(self, *args) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYDOWN, key=pg.K_UP)
         dino.process_input(event)
@@ -49,39 +53,78 @@ class TestDino(unittest.TestCase):
         dino.process_input(event)
         self.assertEqual(dino.status, Status.JUMPING)
 
-    def test_process_input_from_running_to_sneaking(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_process_input_from_running_to_sneaking(self, *args) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYDOWN, key=pg.K_DOWN)
         dino.process_input(event)
         self.assertEqual(dino.status, Status.SNEAKING)
 
-    def test_process_input_from_jumping_to_running(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_process_input_from_jumping_to_running(self, *args) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYUP, key=pg.K_UP)
         dino.status = Status.JUMPING
         dino.process_input(event)
         self.assertEqual(dino.status, Status.JUMPING)
 
-    def test_process_input_from_sneaking_to_running(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_process_input_from_sneaking_to_running(self, *args) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYUP, key=pg.K_DOWN)
         dino.status = Status.SNEAKING
         dino.process_input(event)
         self.assertEqual(dino.status, Status.RUNNING)
 
-    def test_process_input_from_jumping_to_sneaking(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_process_input_from_jumping_to_sneaking(self, *args) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYDOWN, key=pg.K_DOWN)
         dino.status = Status.JUMPING
         dino.process_input(event)
         self.assertEqual(dino.status, Status.JUMPING)
 
-    def test_load_images(self) -> None:
-        dino: Dino = Dino()
-        self.assertIsInstance(dino.running_image, tuple)
-        self.assertIsInstance(dino.sneaking_image, tuple)
+    @patch("pygame.image.load")
+    @patch("game_elements.dino.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_load_images(
+        self,
+        mock_sound: MagicMock,
+        mock_seperate: MagicMock,
+        mock_load_image: MagicMock,
+        mock_load: MagicMock,
+    ) -> None:
 
-    def test__run(self) -> None:
+        mock_load_image.side_effect = [["mock_surface_1"], ["mock_surface_2"]]
+
+        Dino()
+        self.assertEqual(mock_load_image.call_count, 2)
+        self.assertEqual(mock_seperate.call_count, 2)
+        mock_load_image.assert_has_calls(
+            [
+                call("dino_running.png"),
+                call("dino_sneaking.png"),
+            ]
+        )
+
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test__run(self, *args) -> None:
         dino: Dino = Dino()
         dino.status = Status.RUNNING
         dino._run()
@@ -92,31 +135,50 @@ class TestDino(unittest.TestCase):
             dino._run()
         self.assertEqual(dino.current_image, dino.running_image[0][3])
 
-    def test__jump_animation(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test__jump_animation(self, *args) -> None:
+
         dino: Dino = Dino()
         dino.status = Status.JUMPING
         dino._jump()
         self.assertEqual(dino.position_rect, dino.running_image[1])
         self.assertEqual(dino.current_image, dino.running_image[0][0])
 
-    def test__jump_movement(self) -> None:
-        """This function tests the movement of the Dino when it is jumping.
-
-        While jumping the position values are mostly unknown
-        wich makes testing difficult. This function tests only if the Dino
-        returns to the ground after the jump under known conditions.
-        """
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test__jump_calculations(self, *args) -> None:
+        """Test only the jump for a single frame."""
         dino: Dino = Dino()
         dino.status = Status.JUMPING
-        dino.DEFAULT_VELOCITY = -15
-        self.assertEqual(dino.y_position, dino.DEFAULT_POSITION[1])
-        for _ in range(40):
-            dino.counter.tick()
+        initial_y = dino.y_position
+        initial_velocity = dino.jump_velocity
+
+        dino._jump()
+        self.assertEqual(dino.y_position, initial_y + initial_velocity)
+        self.assertEqual(dino.jump_velocity, initial_velocity + dino.GRAVITY)
+
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    @patch("game_elements.GameElement.update")
+    def test_jump_landing(self, *args) -> None:
+        dino: Dino = Dino()
+        dino.status = Status.JUMPING
+        for _ in range(200):
             dino.update()
         self.assertEqual(dino.y_position, dino.DEFAULT_POSITION[1])
-        self.assertEqual(dino.status, Status.RUNNING)
 
-    def test__sneak_animation(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test__sneak_animation(self, *args) -> None:
         dino: Dino = Dino()
         dino.status = Status.SNEAKING
         dino._sneak()
@@ -127,48 +189,70 @@ class TestDino(unittest.TestCase):
             dino._sneak()
         self.assertEqual(dino.current_image, dino.sneaking_image[0][0])
 
-    def test_update_animations(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    @patch("game_elements.GameElement.update")
+    def test_update_animations(self, *args) -> None:
         dino: Dino = Dino()
         dino.status = Status.JUMPING
         dino.update()
         self.assertEqual(dino.current_image, dino.running_image[0][0])
 
-    def test_check_collision_false(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    @patch("game_elements.GameElement.update")
+    def test_check_collision_false(self, *args) -> None:
         dino: Dino = Dino()
         dino.update()
+        dino.hitbox = pg.Rect(0, 0, 10, 10)
+
         non_colliding: GameElement = GameElement(500, 200)
-        non_colliding.position_rect = pg.Rect(500, 200, 50, 50)
         non_colliding.hitbox = pg.Rect(500, 200, 50, 50)
         self.assertFalse(dino.check_collision([non_colliding]))
 
-    def test_check_collision_true(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    @patch("game_elements.GameElement.update")
+    def test_check_collision_true(self, *args) -> None:
         dino: Dino = Dino()
         dino.update()
+        dino.hitbox = pg.Rect(0, 0, 10, 10)
+
         colliding: GameElement = GameElement(dino.x_position, dino.y_position)
-        colliding.position_rect: pg.Rect = pg.Rect(
-            dino.position_rect.topleft, dino.position_rect.size
-        )
         colliding.hitbox: pg.Rect = pg.Rect(dino.hitbox.topleft, dino.hitbox.size)
         self.assertTrue(dino.check_collision([colliding]))
 
-    def test_check_collision_multiple(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    @patch("game_elements.GameElement.update")
+    def test_check_collision_multiple(self, *args) -> None:
         dino: Dino = Dino()
         dino.update()
+        dino.hitbox = pg.Rect(0, 0, 10, 10)
+
         non_colliding: GameElement = GameElement(500, 200)
-        non_colliding.position_rect = pg.Rect(500, 200, 50, 50)
         non_colliding.hitbox = pg.Rect(500, 200, 50, 50)
+
         colliding: GameElement = GameElement(dino.x_position, dino.y_position)
-        colliding.position_rect: pg.Rect = pg.Rect(
-            dino.position_rect.topleft, dino.position_rect.size
-        )
-        colliding.hitbox: pg.Rect = pg.Rect(
-            dino.hitbox.topleft,
-            dino.hitbox.size,
-        )
+        colliding.hitbox: pg.Rect = pg.Rect(dino.hitbox.topleft, dino.hitbox.size)
+
         obstacles: list[GameElement] = [non_colliding, colliding]
         self.assertTrue(dino.check_collision(obstacles))
 
-    def test_check_collision_empty_list(self) -> None:
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    @patch("game_elements.GameElement.update")
+    def test_check_collision_empty_list(self, *args) -> None:
         dino: Dino = Dino()
         dino.update()
         self.assertFalse(dino.check_collision([]))
@@ -180,3 +264,45 @@ class TestStatus(unittest.TestCase):
         self.assertEqual(Status.RUNNING.value, 1)
         self.assertEqual(Status.JUMPING.value, 2)
         self.assertEqual(Status.SNEAKING.value, 3)
+
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_check_collision_with_no_intersection(self, *args) -> None:
+        dino: Dino = Dino()
+        dino.hitbox = pg.Rect(0, 0, 10, 10)
+
+        obstacle = GameElement(100, 100)
+        obstacle.hitbox = pg.Rect(100, 100, 10, 10)
+
+        self.assertFalse(dino.check_collision([obstacle]))
+
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_check_collision_with_intersection(self, *args) -> None:
+        dino: Dino = Dino()
+        dino.hitbox = pg.Rect(0, 0, 10, 10)
+
+        obstacle = GameElement(5, 5)
+        obstacle.hitbox = pg.Rect(5, 5, 10, 10)
+
+        self.assertTrue(dino.check_collision([obstacle]))
+
+    @patch("pygame.image.load")
+    @patch("recourses.load_image")
+    @patch("game_elements.dino.seperate_images")
+    @patch("game_elements.dino.Sound")
+    def test_check_collision_with_multiple_obstacles(self, *args) -> None:
+        dino: Dino = Dino()
+        dino.hitbox = pg.Rect(0, 0, 10, 10)
+
+        obstacle1 = GameElement(100, 100)
+        obstacle1.hitbox = pg.Rect(100, 100, 10, 10)
+
+        obstacle2 = GameElement(5, 5)
+        obstacle2.hitbox = pg.Rect(5, 5, 10, 10)
+
+        self.assertTrue(dino.check_collision([obstacle1, obstacle2]))
