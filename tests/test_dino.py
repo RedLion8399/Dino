@@ -42,7 +42,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_process_input_from_running_to_jumping(self, *args) -> None:
+    def test_process_input_from_running_to_jumping(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYDOWN, key=pg.K_UP)
         dino.process_input(event)
@@ -57,7 +57,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_process_input_from_running_to_sneaking(self, *args) -> None:
+    def test_process_input_from_running_to_sneaking(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYDOWN, key=pg.K_DOWN)
         dino.process_input(event)
@@ -67,7 +67,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_process_input_from_jumping_to_running(self, *args) -> None:
+    def test_process_input_from_jumping_to_running(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYUP, key=pg.K_UP)
         dino.status = Status.JUMPING
@@ -78,7 +78,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_process_input_from_sneaking_to_running(self, *args) -> None:
+    def test_process_input_from_sneaking_to_running(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYUP, key=pg.K_DOWN)
         dino.status = Status.SNEAKING
@@ -89,7 +89,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_process_input_from_jumping_to_sneaking(self, *args) -> None:
+    def test_process_input_from_jumping_to_sneaking(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         event: pg.event.Event = pg.event.Event(pg.KEYDOWN, key=pg.K_DOWN)
         dino.status = Status.JUMPING
@@ -124,7 +124,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test__run(self, *args) -> None:
+    def test__run(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.status = Status.RUNNING
         dino._run()
@@ -139,7 +139,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test__jump_animation(self, *args) -> None:
+    def test__jump_animation(self, *args: MagicMock) -> None:
 
         dino: Dino = Dino()
         dino.status = Status.JUMPING
@@ -151,7 +151,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test__jump_calculations(self, *args) -> None:
+    def test__jump_calculations(self, *args: MagicMock) -> None:
         """Test only the jump for a single frame."""
         dino: Dino = Dino()
         dino.status = Status.JUMPING
@@ -167,7 +167,7 @@ class TestDino(unittest.TestCase):
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
     @patch("game_elements.GameElement.update")
-    def test_jump_landing(self, *args) -> None:
+    def test_jump_landing(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.status = Status.JUMPING
         for _ in range(200):
@@ -178,7 +178,7 @@ class TestDino(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test__sneak_animation(self, *args) -> None:
+    def test__sneak_animation(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.status = Status.SNEAKING
         dino._sneak()
@@ -194,7 +194,7 @@ class TestDino(unittest.TestCase):
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
     @patch("game_elements.GameElement.update")
-    def test_update_animations(self, *args) -> None:
+    def test_update_animations(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.status = Status.JUMPING
         dino.update()
@@ -205,7 +205,7 @@ class TestDino(unittest.TestCase):
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
     @patch("game_elements.GameElement.update")
-    def test_check_collision_false(self, *args) -> None:
+    def test_check_collision_false(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.update()
         dino.hitbox = pg.Rect(0, 0, 10, 10)
@@ -219,7 +219,7 @@ class TestDino(unittest.TestCase):
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
     @patch("game_elements.GameElement.update")
-    def test_check_collision_true(self, *args) -> None:
+    def test_check_collision_true(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.update()
         dino.hitbox = pg.Rect(0, 0, 10, 10)
@@ -233,7 +233,7 @@ class TestDino(unittest.TestCase):
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
     @patch("game_elements.GameElement.update")
-    def test_check_collision_multiple(self, *args) -> None:
+    def test_check_collision_multiple(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.update()
         dino.hitbox = pg.Rect(0, 0, 10, 10)
@@ -252,7 +252,7 @@ class TestDino(unittest.TestCase):
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
     @patch("game_elements.GameElement.update")
-    def test_check_collision_empty_list(self, *args) -> None:
+    def test_check_collision_empty_list(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.update()
         self.assertFalse(dino.check_collision([]))
@@ -269,7 +269,7 @@ class TestStatus(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_check_collision_with_no_intersection(self, *args) -> None:
+    def test_check_collision_with_no_intersection(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.hitbox = pg.Rect(0, 0, 10, 10)
 
@@ -282,7 +282,7 @@ class TestStatus(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_check_collision_with_intersection(self, *args) -> None:
+    def test_check_collision_with_intersection(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.hitbox = pg.Rect(0, 0, 10, 10)
 
@@ -295,7 +295,7 @@ class TestStatus(unittest.TestCase):
     @patch("recourses.load_image")
     @patch("game_elements.dino.seperate_images")
     @patch("game_elements.dino.Sound")
-    def test_check_collision_with_multiple_obstacles(self, *args) -> None:
+    def test_check_collision_with_multiple_obstacles(self, *args: MagicMock) -> None:
         dino: Dino = Dino()
         dino.hitbox = pg.Rect(0, 0, 10, 10)
 
