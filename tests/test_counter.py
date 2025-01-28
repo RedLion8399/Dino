@@ -1,9 +1,8 @@
 # pylint: disable=protected-access, missing-docstring, arguments-differ, unused-argument
 
 import unittest
-from unittest.mock import patch, MagicMock
-
 from random import randint
+from unittest.mock import MagicMock, patch
 
 from counter import Counter
 
