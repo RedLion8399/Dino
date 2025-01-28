@@ -1,14 +1,18 @@
+# pylint: disable=missing-docstring, unused-argument
+
 """This module contains the tests for the config module."""
 
-# pylint: disable=missing-docstring
 
 import unittest
+from unittest.mock import MagicMock, patch
 
 from config import ColorTheme, Config, config
 
 
 class TestConfig(unittest.TestCase):
-    def test_values(self):
+
+    @patch("config.pg")
+    def test_values(self, mock_pg: MagicMock):
         config.display_scale = (800, 600)
         config.caption = "Dino"
         self.assertEqual(config.color_theme, ColorTheme.LIGHT_GRAY)
@@ -16,7 +20,8 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.caption, "Dino")
         self.assertEqual(config.object_speed, 0)
 
-    def test_singleton(self):
+    @patch("config.pg")
+    def test_singleton(self, mock_pg: MagicMock):
         new_config: Config = Config()
         self.assertEqual(config, new_config)
 
