@@ -13,24 +13,27 @@ from counter import Counter
 
 
 class TestCounter(unittest.TestCase):
-    @patch("pg.mixer")
+    @patch("counter.Sound")
     def setUp(self, mock_sound: MagicMock) -> None:
         counter: Counter = Counter()
         counter.frames = 0
         del counter
 
-    def test_init(self) -> None:
+    @patch("counter.Sound")
+    def test_init(self, mock_sound: MagicMock) -> None:
         """This function tests the initialization of the Counter class."""
         counter: Counter = Counter()
         self.assertEqual(counter.frames, 0)
 
-    def test_singleton(self) -> None:
+    @patch("counter.Sound")
+    def test_singleton(self, mock_sound: MagicMock) -> None:
         """This function tests the singleton property of the Counter class."""
         counter1: Counter = Counter()
         counter2: Counter = Counter()
         self.assertEqual(counter1, counter2)
 
-    def test_count_simple(self) -> None:
+    @patch("counter.Sound")
+    def test_count_simple(self, mock_sound: MagicMock) -> None:
         """This function tests the count method of the Counter class."""
         counter: Counter = Counter()
         for _ in range(3):
@@ -38,7 +41,8 @@ class TestCounter(unittest.TestCase):
         self.assertEqual(counter.score, 1)
         self.assertEqual(counter.frames, 3)
 
-    def test_count_multiple(self) -> None:
+    @patch("counter.Sound")
+    def test_count_multiple(self, mock_sound: MagicMock) -> None:
         """This function tests the count method of the Counter class."""
         counter: Counter = Counter()
         random_number: int = randint(1, 100)
@@ -46,7 +50,8 @@ class TestCounter(unittest.TestCase):
             counter.tick()
         self.assertEqual(counter.score, random_number // 3)
 
-    def test_save_highscore(self) -> None:
+    @patch("cou nter.Sound")
+    def test_save_highscore(self, mock_sound: MagicMock) -> None:
         """This function tests the save_highscore method of the Counter class."""
         with open("highscore.txt", "w", encoding="utf-8") as file:
             file.write("0")
@@ -55,7 +60,8 @@ class TestCounter(unittest.TestCase):
         with open("highscore.txt", "r", encoding="utf-8") as file:
             self.assertEqual(int(file.read()), counter.highscore)
 
-    def test_load_random_highscore(self) -> None:
+    @patch("counter.Sound")
+    def test_load_random_highscore(self, mock_sound: MagicMock) -> None:
         """This function tests the load_highscore method of the Counter class."""
         with open("highscore.txt", "w", encoding="utf-8") as file:
             file.write("0")
@@ -67,7 +73,8 @@ class TestCounter(unittest.TestCase):
         counter._Counter__load_highscore()  # type: ignore
         self.assertEqual(counter.highscore, random_score)
 
-    def test_load_highscore(self) -> None:
+    @patch("counter.Sound")
+    def test_load_highscore(self, mock_sound: MagicMock) -> None:
         """This function tests the load_highscore method of the Counter class."""
         counter: Counter = Counter()
         highscore: int = counter.highscore
@@ -77,7 +84,8 @@ class TestCounter(unittest.TestCase):
         counter._Counter__load_highscore()  # type: ignore
         self.assertEqual(counter.highscore, highscore + 100)
 
-    def test_save_highscore_if_higher(self) -> None:
+    @patch("counter.Sound")
+    def test_save_highscore_if_higher(self, mock_sound: MagicMock) -> None:
         """This function tests the save_highscore method of the Counter class."""
         with open("highscore.txt", "w", encoding="utf-8") as file:
             file.write("0")
@@ -88,7 +96,8 @@ class TestCounter(unittest.TestCase):
         with open("highscore.txt", "r", encoding="utf-8") as file:
             self.assertEqual(int(file.read()), 100)
 
-    def test_save_highscore_if_lower(self) -> None:
+    @patch("counter.Sound")
+    def test_save_highscore_if_lower(self, mock_sound: MagicMock) -> None:
         """This function tests the save_highscore method of the Counter class."""
         pre_counter: Counter = Counter()
         pre_counter.highscore = 55
@@ -102,7 +111,8 @@ class TestCounter(unittest.TestCase):
         with open("highscore.txt", "r", encoding="utf-8") as file:
             self.assertEqual(int(file.read()), 55)
 
-    def test_dino_running_status(self):
+    @patch("counter.Sound")
+    def test_dino_running_status(self, mock_sound: MagicMock) -> None:
         counter: Counter = Counter()
         self.assertTrue(counter.dino_running_status)
         for _ in range(12):
