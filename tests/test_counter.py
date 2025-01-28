@@ -14,7 +14,7 @@ from counter import Counter
 
 
 class TestCounter(unittest.TestCase):
-    @patch("counter.Sound")
+    @patch("pg.mixer")
     def setUp(self, mock_sound: MagicMock) -> None:
         counter: Counter = Counter()
         counter.frames = 0
