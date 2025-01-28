@@ -1,6 +1,8 @@
-# pylint: disable=protected-access, missing-docstring
+# pylint: disable=protected-access, missing-docstring, arguments-differ, unused-argument
 
 import unittest
+from unittest.mock import patch, MagicMock
+
 from random import randint
 
 from counter import Counter
@@ -12,7 +14,8 @@ from counter import Counter
 
 
 class TestCounter(unittest.TestCase):
-    def setUp(self) -> None:
+    @patch("counter.Sound")
+    def setUp(self, mock_sound: MagicMock) -> None:
         counter: Counter = Counter()
         counter.frames = 0
         del counter
